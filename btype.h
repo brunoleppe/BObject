@@ -6,21 +6,26 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-typedef size_t bType;
+typedef int bType;
+typedef size_t bSize;
 
-typedef struct{
-    size_t instance_size;
-    size_t class_size;
-    bType type_id;
-    const char* name;
-    void* class;
-}bTypeQuery;
 
-bType bType_register_with_name(char* name, size_t instance_size, size_t class_size, void* class);
+#define B_TYPE_OBJECT       (0)
 
-bType bType_register(size_t instance_size, size_t class_size, void* class, void (*instance_initialize)(void), void (*class_initialize)(void));
-int btype_register_private(bType type, size_t private_size);
-void * bType_get_class(bType type);
-void * bType_instantiate(bType type);
+bType b_type_register(
+    bType parent_type,
+    bSize instance_size,
+    void (*instance_initialize)(void*),
+    bSize class_size,
+    void (*class_initialize)(void*)
+    );
+int b_type_private_register(
+    bType type,
+    bSize private_size
+    );
+void * b_type_class_get(bType type);
+void * b_type_parent_class_get(bType type);
+
+void * b_type_instantiate(bType type);
 
 #endif /*BTYPE_H*/

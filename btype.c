@@ -1,45 +1,116 @@
-#include "bType.h"
+#include "btype.h"
+#include <string.h>
 
-//Array -> Arreglo de datos | dato 1| dato 2| dato 3| dato 4| | |
-static bTypeQuery *types[20]; 
+typedef struct{
+    bType type_id;
+    bType parent_id;
+    
+    bSize instance_size;
+    bSize class_size;
+    
+    //const char* name;
+    void* class;
+
+    void (*constructor)(void*);
+
+}bTypeNode;
+
+
+static bTypeNode *types[20]; 
 static bType type_id = 0;
 
-typedef struct bTypeNode bTypeNode;
-
-struct bTypeNode{
-    bTypeNode *parent;
-    bTypeQuery type_query;
-}
-
-
-bType bType_register(size_t instance_size, size_t class_size, void* class, void (*instance_initialize)(void), void (*class_initialize)(void))
+bType b_type_register(
+    bType parent_type,
+    bSize instance_size,
+    void (*instance_initialize)(void*),
+    bSize class_size,
+    void (*class_initialize)(void*))
 {
-    bTypeQuery* q = malloc(sizeof(*q));
-    q->class = class;
+    bTypeNode *q = malloc(sizeof(*q));
+    
     q->instance_size = instance_size;
     q->class_size = class_size;
-    q->name = "";
-    q->type_id = type_id;
-    type_id++;
+
+    q->type_id = type_id++;
+    q->parent_id = parent_type;   
+
+    q->class = malloc(class_size);
+
+    if(q->parent_id >= 0){
+        void *parent_class = types[parent_type]->class;
+        bSize parent_class_size = types[parent_type]->class_size;
+        //Inherit base class by copying all function pointers
+        memcpy(q->class,parent_class,parent_class_size);
+    }
+    
+    //Initialize the class
+    class_initialize(q->class);
+
+    q->constructor = instance_initialize;
+
     types[q->type_id] = q;
 
     return q->type_id;
 }
-int btype_register_private(bType type, size_t private_size)
+int b_type_private_register(
+    bType type,
+    bSize private_size)
 {
-    bTypeQuery* q = types[type];
+    bTypeNode *q = types[type];
     int offset = q->instance_size;
     q->instance_size += private_size;
     return offset;
 }
-void * bType_get_class(bType type)
+void * b_type_class_get(bType type)
 {
-    bTypeQuery* q = types[type];
+    bTypeNode *q = types[type];
     return q->class;
 }
-void * bType_instantiate(bType type)
+void * b_type_parent_class_get(bType type)
 {
-    bTypeQuery* q = types[type];
+    bTypeNode *q = types[type];
+    q = types[q->parent_id];
+    return q->class;
+}
+void * b_type_instantiate(bType type)
+{
+    bTypeNode *q = types[type];
     void * instance = malloc(q->instance_size);
+    q->constructor(instance);
     return instance;
 }
+
+
+
+
+// bType bType_register(size_t instance_size, size_t class_size, void* class, void (*instance_initialize)(void), void (*class_initialize)(void))
+// {
+//     bTypeNode* q = malloc(sizeof(*q));
+//     q->class = class;
+//     q->instance_size = instance_size;
+//     q->class_size = class_size;
+//     q->name = "";
+//     q->type_id = type_id;
+//     type_id++;
+//     types[q->type_id] = q;
+
+//     return q->type_id;
+// }
+// int btype_register_private(bType type, size_t private_size)
+// {
+//     bTypeNode* q = types[type];
+//     int offset = q->instance_size;
+//     q->instance_size += private_size;
+//     return offset;
+// }
+// void * bType_get_class(bType type)
+// {
+//     bTypeNode* q = types[type];
+//     return q->class;
+// }
+// void * bType_instantiate(bType type)
+// {
+//     bTypeNode* q = types[type];
+//     void * instance = malloc(q->instance_size);
+//     return instance;
+// }

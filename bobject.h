@@ -1,7 +1,7 @@
 #ifndef BOBJECT_H
 #define BOBJECT_H
 
-#include "bType.h"
+#include "btype.h"
 
 typedef struct bObject bObject;
 struct bObject{
@@ -18,8 +18,6 @@ void bObject_destructor(bObject* obj);
 void* bObject_constructor(void* params);
 
 bType bObject_get_type();
-
-bObject* bObject_new(void);
-void bOject_initialize();
+bObject* bObject_new(bType type);
 
 #endif /*BOBJECT_H*/

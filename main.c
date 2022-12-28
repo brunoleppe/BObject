@@ -1,20 +1,11 @@
-#include "bObject.h"
-#include "bstring.h"
+#include "bobject.h"
+// #include "bstring.h"
 #include <stdio.h>
 
 int main(void){
-    bOject_initialize();
-    bString_initialize();
-    
-    bObject* obj = bObject_new();
-    printf("Soy un objeto y mi tipo es %d\n",obj->type);
 
-    bString* string = bString_new();
-    bString_print(string);
-
-
-    bObject_destructor(obj);
-    bObject_destructor((bObject*)string);
+    bObject *obj = bObject_new(bObject_get_type());
+    printf("Objeto con tipo %d\n",obj->type);
 
     return 0;
 

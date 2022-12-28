@@ -1,8 +1,7 @@
-#include "bObject.h"
+#include "bobject.h"
 #include <stdio.h>
 
-static bType type_id;
-
+static bType type_id = B_TYPE_OBJECT;
 static bObjectClass class;
 
 static void destructor(bObject* obj){
@@ -14,32 +13,39 @@ static void bObject_class_initialize(bObjectClass* class){
     class->destructor = destructor;
     class->constructor = NULL;
 }
-void bOject_initialize(){
-    bObject_class_initialize(&class);
-    
-    type_id = bType_register(
-            sizeof(bObject),
-            sizeof(bObjectClass),
-            &class,
-            NULL,
-            NULL);
-}
-
-void bObject_instance_initialize(bObject* obj){
+static void bObject_instance_initialize(bObject* obj){
     obj->type = type_id;
+    printf("inicializando bObject\n");
 }
 
-bObject* bObject_new(void)
+static void bOject_initialize(){
+    static bool initialized = false;
+    if(initialized)
+        return;
+    type_id = b_type_register(
+        -1,
+        sizeof(bObject),
+        (void (*)(void*))bObject_instance_initialize,
+        sizeof(bObjectClass),
+        (void (*)(void*))bObject_class_initialize
+        );
+    initialized = true;
+
+    
+
+}
+
+bObject* bObject_new(bType type)
 {
-    bObject* obj = bType_instantiate(type_id);
-    bObject_instance_initialize(obj);
+    bObject* obj = b_type_instantiate(bObject_get_type());
+    obj->type = type;
     return obj;
 }
 
 
 void bObject_destructor(bObject* obj)
 {
-    bObjectClass* class = bType_get_class(obj->type);
+    bObjectClass* class = b_type_class_get(obj->type);
     class->destructor(obj);
 }
 void* bObject_constructor(void* params)
@@ -50,5 +56,6 @@ void* bObject_constructor(void* params)
 }
 
 bType bObject_get_type(){
+    bOject_initialize();
     return type_id;
 }
