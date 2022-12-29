@@ -24,7 +24,8 @@ bType b_type_register(
     bSize instance_size,
     void (*instance_initialize)(void*),
     bSize class_size,
-    void (*class_initialize)(void*))
+    void (*class_initialize)(void*),
+    void *class)
 {
     bTypeNode *q = malloc(sizeof(*q));
     
@@ -34,7 +35,7 @@ bType b_type_register(
     q->type_id = type_id++;
     q->parent_id = parent_type;   
 
-    q->class = malloc(class_size);
+    q->class = class;
 
     if(q->parent_id >= 0){
         void *parent_class = types[parent_type]->class;
@@ -72,11 +73,18 @@ void * b_type_parent_class_get(bType type)
     q = types[q->parent_id];
     return q->class;
 }
+static void b_type_initialize(bType type, void *instance)
+{
+    bTypeNode *q = types[type];
+    if(q->parent_id>=0)
+        b_type_initialize(q->parent_id,instance);
+    q->constructor(instance);
+}
 void * b_type_instantiate(bType type)
 {
     bTypeNode *q = types[type];
     void * instance = malloc(q->instance_size);
-    q->constructor(instance);
+    b_type_initialize(type, instance);
     return instance;
 }
 

@@ -1,6 +1,8 @@
 #ifndef BTYPE_H
 #define BTYPE_H
 
+#include "debug.h"
+
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -17,7 +19,8 @@ bType b_type_register(
     bSize instance_size,
     void (*instance_initialize)(void*),
     bSize class_size,
-    void (*class_initialize)(void*)
+    void (*class_initialize)(void*),
+    void *class
     );
 int b_type_private_register(
     bType type,

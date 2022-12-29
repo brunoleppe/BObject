@@ -18,9 +18,9 @@ struct bStringClass{
     void (*print)(bString*);
 };
 
+bType b_string_get_type();
+void b_string_print(bString* string);
+bString* b_string_new(void);
 
-void bString_print(bString* string);
-bString* bString_new(void);
-void bString_initialize();
 
 #endif /*BSTRING_H*/

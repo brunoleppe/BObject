@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "__stddef_max_align_t.h": "c"
+        "__stddef_max_align_t.h": "c",
+        "bobject.h": "c",
+        "btype.h": "c",
+        "stddef.h": "c"
     }
 }
