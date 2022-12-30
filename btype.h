@@ -20,7 +20,7 @@ bType b_type_register(
     void (*instance_initialize)(void*),
     bSize class_size,
     void (*class_initialize)(void*),
-    void *class
+    void *klass
     );
 int b_type_private_register(
     bType type,
@@ -30,5 +30,7 @@ void * b_type_class_get(bType type);
 void * b_type_parent_class_get(bType type);
 
 void * b_type_instantiate(bType type);
+
+void b_type_clean();
 
 #endif /*BTYPE_H*/

@@ -38,6 +38,8 @@ static void bOject_initialize(){
 bObject* bObject_new(bType type)
 {
     bObject* obj = b_type_instantiate(type);
+    if(obj == NULL)
+        return NULL;
     obj->type = type;
     return obj;
 }

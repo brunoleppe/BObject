@@ -1,5 +1,6 @@
 #include "bstring.h"
 #include <stdio.h>
+#include <string.h>
 
 typedef struct{
     int size;
@@ -13,7 +14,7 @@ static int private_offset = 0;
 
 static void destructor(bString* string)
 {
-    free(string->string);
+    //free(string->string);
     bObjectClass* class = b_type_parent_class_get(type_id);
     DEBUG_PRINT("Eliminando string\n");
     class->destructor((bObject*)string);
@@ -30,23 +31,23 @@ static void bString_class_initialize(bStringClass* class){
     class->print = print;
 }
 
-static void bString_instance_initialize(bString* string)
+static void b_string_instance_initialize(bString* string)
 {
-    bStringPrivate* priv = (bStringPrivate*)((char*)(string)+private_offset);  
-    priv->size = 1024;
-    string->string = malloc(priv->size + 1);
-    string->parent_instance.type = type_id;
     DEBUG_PRINT("Inicializando bString\n");
+    // bStringPrivate* priv = (bStringPrivate*)((char*)(string)+private_offset);  
+    // priv->size = 64;
+    //string->string = malloc(priv->size);
+    
 }
 
-void bString_initialize(){
+void b_string_initialize(){
     static bool initialized = false;
     if(initialized)
         return;
     type_id = b_type_register(
             B_TYPE_OBJECT,
             sizeof(bString),
-            (void (*)(void*))bString_instance_initialize,
+            (void (*)(void*))b_string_instance_initialize,
             sizeof(bStringClass),
             (void (*)(void*))bString_class_initialize,
             &class);
@@ -70,6 +71,11 @@ void b_string_print(bString* string)
     class->print(string);
 }
 bType b_string_get_type(){
-    bString_initialize();
+    b_string_initialize();
     return type_id;
+}
+
+void b_string_set(bString* str, char* s)
+{
+    strcpy(str->string,s);
 }

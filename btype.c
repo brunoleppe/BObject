@@ -8,6 +8,8 @@ typedef struct{
     bSize instance_size;
     bSize class_size;
     
+    bSize private_size;
+
     //const char* name;
     void* class;
 
@@ -18,6 +20,7 @@ typedef struct{
 
 static bTypeNode *types[20]; 
 static bType type_id = 0;
+static int type_count = 0;
 
 bType b_type_register(
     bType parent_type,
@@ -27,6 +30,7 @@ bType b_type_register(
     void (*class_initialize)(void*),
     void *class)
 {
+    type_count++;
     bTypeNode *q = malloc(sizeof(*q));
     
     q->instance_size = instance_size;
@@ -60,6 +64,7 @@ int b_type_private_register(
     bTypeNode *q = types[type];
     int offset = q->instance_size;
     q->instance_size += private_size;
+    q->private_size = private_size;
     return offset;
 }
 void * b_type_class_get(bType type)
@@ -84,11 +89,19 @@ void * b_type_instantiate(bType type)
 {
     bTypeNode *q = types[type];
     void * instance = malloc(q->instance_size);
+    if(instance == NULL)
+        return NULL;
     b_type_initialize(type, instance);
     return instance;
 }
 
-
+void b_type_clean()
+{
+    int i;
+    for(i=0;i<type_count;i++){
+        free(types[i]);
+    }
+}
 
 
 // bType bType_register(size_t instance_size, size_t class_size, void* class, void (*instance_initialize)(void), void (*class_initialize)(void))
