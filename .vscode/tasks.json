@@ -7,9 +7,14 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/main.c",
+                "${workspaceFolder}/bobject.c",
+                "${workspaceFolder}/bstring.c",
+                "${workspaceFolder}/bstringcolor.c",
+                "${workspaceFolder}/btype.c",
+                "${workspaceFolder}/debug.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/main"
             ],
             "options": {
                 "cwd": "${fileDirname}"

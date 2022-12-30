@@ -4,6 +4,7 @@
 
 typedef struct{
     int size;
+    char *secret;
 }bStringPrivate;
 
 
@@ -14,7 +15,7 @@ static int private_offset = 0;
 
 static void destructor(bString* string)
 {
-    //free(string->string);
+    free(string->string);
     bObjectClass* class = b_type_parent_class_get(type_id);
     DEBUG_PRINT("Eliminando string\n");
     class->destructor((bObject*)string);
@@ -34,10 +35,10 @@ static void bString_class_initialize(bStringClass* class){
 static void b_string_instance_initialize(bString* string)
 {
     DEBUG_PRINT("Inicializando bString\n");
-    // bStringPrivate* priv = (bStringPrivate*)((char*)(string)+private_offset);  
-    // priv->size = 64;
-    //string->string = malloc(priv->size);
-    
+    bStringPrivate* priv = (bStringPrivate*)((char*)(string)+private_offset);  
+    priv->size = 64;
+    string->string = malloc(priv->size);
+    priv->secret = "String Sectreto base";
 }
 
 void b_string_initialize(){
@@ -78,4 +79,9 @@ bType b_string_get_type(){
 void b_string_set(bString* str, char* s)
 {
     strcpy(str->string,s);
+}
+void b_string_print_secret(bString* str)
+{
+    bStringPrivate* priv = (bStringPrivate*)((char*)(str)+private_offset);  
+    printf("%s\n",priv->secret);
 }

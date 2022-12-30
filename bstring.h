@@ -9,7 +9,7 @@ typedef struct bStringClass bStringClass;
 
 struct bString{
     bObject parent_instance;
-    char string[64];
+    char *string;
     int len;
 };
 
@@ -22,5 +22,5 @@ bType b_string_get_type();
 void b_string_print(bString* string);
 bString* b_string_new(void);
 void b_string_set(bString* str, char* s);
-
+void b_string_print_secret(bString* str);
 #endif /*BSTRING_H*/

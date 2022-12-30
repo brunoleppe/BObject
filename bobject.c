@@ -5,7 +5,7 @@ static bType type_id = B_TYPE_OBJECT;
 static bObjectClass class;
 
 static void destructor(bObject* obj){
-    free(obj);
+    b_type_free(obj,obj->type);
     DEBUG_PRINT("Eliminando el objeto\n");
 }
 

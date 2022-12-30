@@ -16,7 +16,7 @@ struct bStringColorClass{
 
 bType b_string_color_get_type();
 bStringColor* b_string_color_new(void);
-
+void b_string_color_print_secret(bStringColor *sc);
 
 
 #endif

@@ -9,6 +9,7 @@ typedef struct{
     bSize class_size;
     
     bSize private_size;
+    int private_offset;
 
     //const char* name;
     void* class;
@@ -30,31 +31,50 @@ bType b_type_register(
     void (*class_initialize)(void*),
     void *class)
 {
+    //Count of registered classes for list of bTypeNode cleaning
     type_count++;
+
+    //Alloc new bTypeNode
     bTypeNode *q = malloc(sizeof(*q));
     
-    q->instance_size = instance_size;
-    q->class_size = class_size;
+    //Initialize private offset and size, will inherit parent's values later
+    q->private_offset = 0;
+    q->private_size = 0;
 
+    //Assign instance size and class size 
+    q->instance_size = instance_size;//used to alloc new object with total size (private + instance)
+    q->class_size = class_size;//used to copy parent interface to child interface
+    
+    //Assign the new type_id and increment it
     q->type_id = type_id++;
     q->parent_id = parent_type;   
-
+    //pointer to the object's class as void*
     q->class = class;
 
+    //All classes should be derived from bObject, this should always be true except for bObject (base class)
     if(q->parent_id >= 0){
-        void *parent_class = types[parent_type]->class;
-        bSize parent_class_size = types[parent_type]->class_size;
-        //Inherit base class by copying all function pointers
+        bTypeNode *parent = types[q->parent_id];
+        
+        //obtain the parent class
+        void *parent_class = parent->class;
+        //obtain the parent class size
+        bSize parent_class_size = parent->class_size;
+        //Inherit base class by copying all function pointers to child class (this)
         memcpy(q->class,parent_class,parent_class_size);
+        
+        //update child's private offset and private size from parent.
+        q->private_offset = parent->private_offset;
+        q->private_size = parent->private_size;
+
     }
     
     //Initialize the class
     class_initialize(q->class);
-
+    //Assign the object's constructor function
     q->constructor = instance_initialize;
-
+    //Store the new bTypeNode
     types[q->type_id] = q;
-
+    //return the bType corresponding to the newly registered class
     return q->type_id;
 }
 int b_type_private_register(
@@ -62,10 +82,12 @@ int b_type_private_register(
     bSize private_size)
 {
     bTypeNode *q = types[type];
-    int offset = q->instance_size;
     q->instance_size += private_size;
-    q->private_size = private_size;
-    return offset;
+    q->private_size += private_size;
+
+    q->private_offset = q->private_size;
+
+    return -q->private_offset;
 }
 void * b_type_class_get(bType type)
 {
@@ -91,8 +113,19 @@ void * b_type_instantiate(bType type)
     void * instance = malloc(q->instance_size);
     if(instance == NULL)
         return NULL;
+
+    instance = ((char*)instance) + q->private_offset;
+
     b_type_initialize(type, instance);
     return instance;
+}
+
+void   b_type_free(void* obj, bType type)
+{
+    char *instance = (char*)obj;
+    bTypeNode *q = types[type];
+    char *pointer = (char*)(instance - q->private_offset);
+    free(pointer);
 }
 
 void b_type_clean()
@@ -102,36 +135,3 @@ void b_type_clean()
         free(types[i]);
     }
 }
-
-
-// bType bType_register(size_t instance_size, size_t class_size, void* class, void (*instance_initialize)(void), void (*class_initialize)(void))
-// {
-//     bTypeNode* q = malloc(sizeof(*q));
-//     q->class = class;
-//     q->instance_size = instance_size;
-//     q->class_size = class_size;
-//     q->name = "";
-//     q->type_id = type_id;
-//     type_id++;
-//     types[q->type_id] = q;
-
-//     return q->type_id;
-// }
-// int btype_register_private(bType type, size_t private_size)
-// {
-//     bTypeNode* q = types[type];
-//     int offset = q->instance_size;
-//     q->instance_size += private_size;
-//     return offset;
-// }
-// void * bType_get_class(bType type)
-// {
-//     bTypeNode* q = types[type];
-//     return q->class;
-// }
-// void * bType_instantiate(bType type)
-// {
-//     bTypeNode* q = types[type];
-//     void * instance = malloc(q->instance_size);
-//     return instance;
-// }

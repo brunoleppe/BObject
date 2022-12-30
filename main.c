@@ -14,11 +14,12 @@ int main(void){
     bString *string2 = b_string_new();
     
     bStringColor *sc = b_string_color_new();
-    if(sc != NULL){
-        b_string_set((bString*)sc, "Cosas");
-        b_string_print((bString*)sc);
-        bObject_destructor((bObject*)sc);
-    }
+    b_string_set((bString*)sc, "Cosas");
+    b_string_print((bString*)sc);
+    b_string_print_secret((bString*)sc);
+    b_string_color_print_secret(sc);
+    
+    bObject_destructor((bObject*)sc);
 
     b_string_set(string, "Hola Mundo");
     b_string_set(string2, "Chao Mundo");
