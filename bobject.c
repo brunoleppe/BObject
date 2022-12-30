@@ -1,7 +1,7 @@
 #include "bobject.h"
 #include <stdio.h>
 
-static bType type_id = B_TYPE_OBJECT;
+static bType type_id = B_TYPE_OBJECT();
 static bObjectClass class;
 
 static void destructor(bObject* obj){
@@ -11,7 +11,6 @@ static void destructor(bObject* obj){
 
 static void bObject_class_initialize(bObjectClass* class){
     class->destructor = destructor;
-    class->constructor = NULL;
 }
 static void bObject_instance_initialize(bObject* obj){
     obj->type = type_id;

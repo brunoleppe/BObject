@@ -3,9 +3,8 @@
 
 #include "bobject.h"
 
-
-typedef struct bString bString;
-typedef struct bStringClass bStringClass;
+#define B_TYPE_STRING() b_string_get_type()
+B_DECLARE_DERIVABLE_TYPE(bString,b_string,bObject)
 
 struct bString{
     bObject parent_instance;
@@ -18,7 +17,6 @@ struct bStringClass{
     void (*print)(bString*);
 };
 
-bType b_string_get_type();
 void b_string_print(bString* string);
 bString* b_string_new(void);
 void b_string_set(bString* str, char* s);

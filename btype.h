@@ -12,12 +12,12 @@ typedef int bType;
 typedef size_t bSize;
 
 
-#define B_TYPE_OBJECT       (0)
+#define B_TYPE_OBJECT()       (0)
 
 #define B_DECLARE_FINAL_TYPE(TypeName, type_name, ParentName)   \
 typedef struct TypeName TypeName;\
 typedef struct TypeName##Class TypeName##Class;\
-bType type_name##get_type();\
+bType type_name##_get_type();\
 struct TypeName##Class{\
     ParentName##Class parent_class;\
 };
@@ -25,14 +25,14 @@ struct TypeName##Class{\
 #define B_DECLARE_DERIVABLE_TYPE(TypeName, type_name , ParentName)  \
 typedef struct TypeName TypeName;\
 typedef struct TypeName##Class TypeName##Class;\
-bType type_name##get_type();\
+bType type_name##_get_type();\
 
 #define B_DEFINE_TYPE(TypeName, type_name, ParentType) B_DEFINE_TYPE_EXTENDED(TypeName, type_name, ParentType, {})
-#define B_DEFINE_TYPE_WITH_PRIVATE(TypeName, type_name, ParentType) B_DEFINE_TYPE_EXTENDED(TypeName, type_name, ParentType, B_DEFINE_PRIVATE())
+#define B_DEFINE_TYPE_WITH_PRIVATE(TypeName, type_name, ParentType) B_DEFINE_TYPE_EXTENDED(TypeName, type_name, ParentType, B_DEFINE_PRIVATE(TypeName,type_name))
 
 
 #define B_DEFINE_PRIVATE(TN, t_n)                                   \
-    t_n##_private_offset = b_type_private_register(type_id,sizeof(TN##Private));
+    t_n##_private_offset = b_type_private_register(type_id,sizeof(TN##Private))
 
 #define B_DEFINE_TYPE_EXTENDED(TN, t_n, PT, _C_)     B_DEFINE_TYPE_INIT(TN,t_n,PT) {_C_;} B_DEFINE_TYPE_END()
 
@@ -40,7 +40,7 @@ bType type_name##get_type();\
 #define B_DEFINE_TYPE_INIT(TypeName,type_name,ParentType)           \
 static bType type_id;                                               \
 static TypeName##Class class;                                       \
-static int type_name##_private_offset                               \
+static int type_name##_private_offset;                              \
                                                                     \
 static inline void* type_name##_get_private(TypeName* self)         \
 {                                                                   \
@@ -49,6 +49,12 @@ static inline void* type_name##_get_private(TypeName* self)         \
 static void type_name##_destructor(TypeName* self);                 \
 static void type_name##_class_initialize(TypeName##Class* class);   \
 static void type_name##_instance_initialize(TypeName* self);        \
+static void type_name##_initialize();                               \
+bType type_name##_get_type()                                        \
+{                                                                   \
+    type_name##_initialize();                                       \
+    return type_id;                                                 \
+}                                                                   \
 static void type_name##_initialize(){                               \
     static bool initialized = false;                                \
     if(initialized)                                                 \

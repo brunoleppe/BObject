@@ -10,7 +10,6 @@ struct bObject{
 
 typedef struct bObjectClass bObjectClass;
 struct bObjectClass{
-    void* (*constructor)(void*);
     void (*destructor)(bObject*);
 };
 
