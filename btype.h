@@ -78,6 +78,7 @@ static void type_name##_initialize(){                               \
     {
 #define B_DEFINE_TYPE_END()                                         \
     }                                                               \
+    b_type_class_initialize(type_id);\
     initialized = true;                                             \
 }   
 
@@ -120,6 +121,32 @@ static void type_name##_initialize(){                               \
     b_type_interface_add(iface_type,type_id,(void (*)(void*))init_fcn);\
 }
 
+#define B_IMPLEMENT_INTERFACES(...)         \
+{\
+    b_type_add_interfaces(type_id, __VA_ARGS__, NULL);\
+}
+
+#define B_OVERWRITE_INTERFACE(iface_type, init_fcn)\
+{\
+    b_type_overwrite_interface(type_id,B_INTERFACE(iface_type, init_fcn));\
+}
+
+#define B_INTERFACE(_iface_type, _init_fcn)   &(IFaceParams){.iface_type = _iface_type, .init_fcn = (void (*)(void*))_init_fcn}
+
+/********************************************************************************************************/
+/*                              Structures                                                              */
+/********************************************************************************************************/
+
+typedef struct{
+    bType iface_type;
+    void (*init_fcn)(void*);
+}IFaceParams;
+
+/********************************************************************************************************/
+/*                              Prototypes                                                              */
+/********************************************************************************************************/
+
+
 bType b_type_register(
     bType parent_type,
     bSize instance_size,
@@ -145,6 +172,12 @@ void * b_type_interface_get(bType instance_type, bType interface_type);
 
 void * b_type_instantiate(bType type);
 void   b_type_free(void* obj, bType type);
+
+void b_type_add_interfaces(bType type, ... /* NULL*/);
+void b_type_overwrite_interface(bType type, IFaceParams *params);
+void b_type_class_initialize(bType type);
+void b_type_interface_initialize(bType type);
+
 
 bType b_type_object_initialize(
     bSize instance_size,

@@ -11,8 +11,12 @@ static void i_printable_interface_init(IPrintableInterface *iface);
 static void i_showable_interface_init(IShowableInterface *iface);
 
 B_DEFINE_TYPE_EXTENDED(bTest,b_test,B_TYPE_OBJECT(),
-    B_IMPLEMENT_INTERFACE(I_TYPE_PRINTABLE(),i_printable_interface_init)
-    B_IMPLEMENT_INTERFACE(I_TYPE_SHOWABLE(),i_showable_interface_init)
+    // B_IMPLEMENT_INTERFACE(I_TYPE_PRINTABLE(),i_printable_interface_init)
+    // B_IMPLEMENT_INTERFACE(I_TYPE_SHOWABLE(),i_showable_interface_init)
+    B_IMPLEMENT_INTERFACES(
+        B_INTERFACE(I_TYPE_PRINTABLE(),i_printable_interface_init),
+        B_INTERFACE(I_TYPE_SHOWABLE(),i_showable_interface_init)
+    )
 )
 
 static void i_printable_print_bTest(bTest * test)

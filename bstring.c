@@ -15,7 +15,10 @@ static void i_printable_interface_init (IPrintableInterface *iface);
 // B_DEFINE_TYPE_WITH_PRIVATE(bString, b_string, B_TYPE_OBJECT())
 B_DEFINE_TYPE_EXTENDED(bString,b_string,B_TYPE_OBJECT(),
     B_DEFINE_PRIVATE(bString, b_string)
-    B_IMPLEMENT_INTERFACE(I_TYPE_PRINTABLE(),i_printable_interface_init)
+    // B_IMPLEMENT_INTERFACE(I_TYPE_PRINTABLE(),i_printable_interface_init)
+    B_IMPLEMENT_INTERFACES(
+        B_INTERFACE(I_TYPE_PRINTABLE(),i_printable_interface_init)
+    )
 )
 
 static void i_printable_print_bstring(bString * string)

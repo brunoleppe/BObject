@@ -28,6 +28,8 @@ static void bOject_initialize(){
         (void (*)(void*))bObject_class_initialize,
         &class);
 
+    b_type_class_initialize(type_id);
+
     initialized = true;
     INFO_PRINT("Objecto inicializado\n");
     
