@@ -1,7 +1,7 @@
 #include "bobject.h"
 #include <stdio.h>
 
-static bType type_id = B_TYPE_OBJECT();
+static bType type_id = 0;
 static bObjectClass class;
 
 static void destructor(bObject* obj){
@@ -21,20 +21,20 @@ static void bOject_initialize(){
     static bool initialized = false;
     if(initialized)
         return;
-    type_id = b_type_register(
-        -1,
+    type_id = b_type_object_initialize(
         sizeof(bObject),
         (void (*)(void*))bObject_instance_initialize,
         sizeof(bObjectClass),
         (void (*)(void*))bObject_class_initialize,
         &class);
+
     initialized = true;
     INFO_PRINT("Objecto inicializado\n");
     
 
 }
 
-bObject* bObject_new(bType type)
+bObject* b_object_new(bType type)
 {
     bObject* obj = b_type_instantiate(type);
     if(obj == NULL)
@@ -44,19 +44,13 @@ bObject* bObject_new(bType type)
 }
 
 
-void bObject_destructor(bObject* obj)
+void b_object_delete(bObject* obj)
 {
     bObjectClass* class = b_type_class_get(obj->type);
     class->destructor(obj);
 }
-void* bObject_constructor(void* params)
-{
-    // bObjectClass* class = bType_get_class(obj->type);
-    // class->constructor(obj);
-    return NULL;
-}
 
-bType bObject_get_type(){
+bType b_object_get_type(){
     bOject_initialize();
     return type_id;
 }

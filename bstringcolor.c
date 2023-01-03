@@ -47,7 +47,7 @@ static void b_string_color_initialize(){
             (void (*)(void*))b_string_color_class_initialize,
             &class);
 
-    private_offset = b_type_private_register(type_id,sizeof(bStringColorPrivate));
+    private_offset = b_type_private_add(type_id,sizeof(bStringColorPrivate));
 
     initialized = true;
     INFO_PRINT("StringColor inicializado\n");
@@ -57,7 +57,7 @@ static void b_string_color_initialize(){
 
 bStringColor* b_string_color_new(void)
 {
-    bStringColor* obj = (bStringColor*)bObject_new(b_string_color_get_type());
+    bStringColor* obj = (bStringColor*)b_object_new(b_string_color_get_type());
     return obj;
 }
 

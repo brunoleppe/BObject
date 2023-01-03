@@ -1,4 +1,5 @@
 #include "bstring.h"
+#include "iprintable.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -7,8 +8,27 @@ typedef struct{
     char *secret;
 }bStringPrivate;
 
-B_DEFINE_TYPE_WITH_PRIVATE(bString, b_string, B_TYPE_OBJECT())
+static void i_printable_interface_init (IPrintableInterface *iface);
 
+
+
+// B_DEFINE_TYPE_WITH_PRIVATE(bString, b_string, B_TYPE_OBJECT())
+B_DEFINE_TYPE_EXTENDED(bString,b_string,B_TYPE_OBJECT(),
+    B_DEFINE_PRIVATE(bString, b_string)
+    B_IMPLEMENT_INTERFACE(I_TYPE_PRINTABLE(),i_printable_interface_init)
+)
+
+static void i_printable_print_bstring(bString * string)
+{
+    b_string_print(string);
+    b_string_print_secret(string);
+    printf("Print de IPrintable\n");
+
+}
+static void i_printable_interface_init (IPrintableInterface *iface)
+{
+    iface->print = (void(*)(IPrintable*))i_printable_print_bstring;
+}
 
 // static bType type_id;
 // static bStringClass class;
@@ -40,12 +60,13 @@ static void b_string_instance_initialize(bString* string)
     bStringPrivate* priv = b_string_get_private(string);
     priv->size = 64;
     string->string = malloc(priv->size);
+    string->string[0] = 0;
     priv->secret = "String Sectreto base";
 }
 
 bString* b_string_new(void)
 {
-    bString* obj = (bString*)bObject_new(b_string_get_type());
+    bString* obj = (bString*)b_object_new(b_string_get_type());
     return obj;
 }
 

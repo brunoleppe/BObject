@@ -3,6 +3,9 @@
 
 #include "btype.h"
 
+#define B_TYPE_OBJECT()         b_object_get_type()
+
+
 typedef struct bObject bObject;
 struct bObject{
     bType type;
@@ -13,10 +16,9 @@ struct bObjectClass{
     void (*destructor)(bObject*);
 };
 
-void bObject_destructor(bObject* obj);
-void* bObject_constructor(void* params);
+void b_object_delete(bObject* obj);
 
-bType bObject_get_type();
-bObject* bObject_new(bType type);
+bType b_object_get_type();
+bObject* b_object_new(bType type);
 
 #endif /*BOBJECT_H*/

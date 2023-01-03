@@ -13,6 +13,9 @@
                 "${workspaceFolder}/bstringcolor.c",
                 "${workspaceFolder}/btype.c",
                 "${workspaceFolder}/debug.c",
+                "${workspaceFolder}/iprintable.c",
+                "${workspaceFolder}/btest.c",
+                "${workspaceFolder}/ishowable.c",
                 "-o",
                 "${workspaceFolder}/main"
             ],

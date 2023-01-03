@@ -2,37 +2,40 @@
 #include "bstring.h"
 #include "bstringcolor.h"
 #include <stdio.h>
+#include "iprintable.h"
+#include "btest.h"
+#include "ishowable.h"
 
 int main(void){
+    bObject *obj = b_object_new(b_object_get_type());
+    
 
-    bObject *obj = bObject_new(bObject_get_type());
-    printf("Objeto con tipo %d\n",obj->type);
 
     bString *string = b_string_new();
-    
-
-    bString *string2 = b_string_new();
-    
-    bStringColor *sc = b_string_color_new();
-    b_string_set((bString*)sc, "Cosas");
-    b_string_print((bString*)sc);
-    b_string_print_secret((bString*)sc);
-    b_string_color_print_secret(sc);
-    
-    bObject_destructor((bObject*)sc);
-
     b_string_set(string, "Hola Mundo");
-    b_string_set(string2, "Chao Mundo");
-    
-    b_string_print(string);
-    b_string_print(string2);
+    // b_string_print(string);
+    // b_string_print_secret(string);
 
     
+    bTest *test = b_test_new();
 
-    bObject_destructor((bObject*)string);
-    bObject_destructor((bObject*)string2);
-    bObject_destructor(obj);
+    i_printable_print((IPrintable*)string);
+    i_printable_print((IPrintable*)test);
+    i_showable_show((IShowable*)test);
 
+    bStringColor *sc = b_string_color_new();
+    
+    // b_string_set((bString*)sc, "Cosas");
+    // b_string_print((bString*)sc);
+    // b_string_print_secret((bString*)sc);
+    // b_string_color_print_secret(sc);
+    i_printable_print((IPrintable*)sc);
+    
+    b_object_delete((bObject*)string);
+    b_object_delete(obj);
+    b_object_delete((bObject*)test);
+    b_object_delete((bObject*)sc);
+    
 
     
     b_type_clean();
