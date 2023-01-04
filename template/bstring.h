@@ -9,10 +9,10 @@ extern "C"{
 
 
 #define B_TYPE_STRING()		b_string_get_type()
-B_DECLARE_FINAL_TYPE(BString, b_string, bObject)
+B_DECLARE_FINAL_TYPE(BString, b_string, BObject)
 
 struct BString{
-	bObject parent_instance;
+	BObject parent_instance;
 	/*public fields*/
 };
 

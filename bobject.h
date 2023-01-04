@@ -6,19 +6,19 @@
 #define B_TYPE_OBJECT()         b_object_get_type()
 
 
-typedef struct bObject bObject;
-struct bObject{
+typedef struct BObject BObject;
+struct BObject{
     bType type;
 };
 
-typedef struct bObjectClass bObjectClass;
-struct bObjectClass{
-    void (*destructor)(bObject*);
+typedef struct BObjectClass BObjectClass;
+struct BObjectClass{
+    void (*destructor)(BObject*);
 };
 
-void b_object_delete(bObject* obj);
+void b_object_delete(BObject* obj);
 
 bType b_object_get_type();
-bObject* b_object_new(bType type);
+BObject* b_object_new(bType type);
 
 #endif /*BOBJECT_H*/

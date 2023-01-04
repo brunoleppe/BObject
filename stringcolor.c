@@ -33,17 +33,17 @@ static void i_printable_interface_init (IPrintableInterface* iface)
 
 static void string_color_destructor(StringColor* string)
 {
-    bObjectClass* class = b_type_parent_class_get(type_id);
+    BObjectClass* class = b_type_parent_class_get(type_id);
     DEBUG_PRINT("Eliminando StringColor\n");
-    class->destructor((bObject*)string);
+    class->destructor((BObject*)string);
     
 }
 
 
 
 static void string_color_class_initialize(StringColorClass* class){
-    bObjectClass *parent_class = (bObjectClass*)class;
-    parent_class->destructor = (void (*)(bObject*))string_color_destructor;
+    BObjectClass *parent_class = (BObjectClass*)class;
+    parent_class->destructor = (void (*)(BObject*))string_color_destructor;
 }
 
 static void string_color_instance_initialize(StringColor* string)

@@ -4,16 +4,16 @@
 #include "bobject.h"
 
 #define B_TYPE_STRING() b_string_get_type()
-B_DECLARE_DERIVABLE_TYPE(bString,b_string,bObject)
+B_DECLARE_DERIVABLE_TYPE(bString,b_string,BObject)
 
 struct bString{
-    bObject parent_instance;
+    BObject parent_instance;
     char *string;
     int len;
 };
 
 struct bStringClass{
-    bObjectClass parent_class;
+    BObjectClass parent_class;
     void (*print)(bString*);
 };
 

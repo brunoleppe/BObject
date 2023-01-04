@@ -7,7 +7,7 @@
 #include "stringcolor.h"
 
 int main(void){
-    bObject *obj = b_object_new(b_object_get_type());
+    BObject *obj = b_object_new(b_object_get_type());
     
 
 
@@ -21,9 +21,9 @@ int main(void){
     i_printable_print((IPrintable*)test);
     i_showable_show((IShowable*)test);
     
-    b_object_delete((bObject*)string);
+    b_object_delete((BObject*)string);
     b_object_delete(obj);
-    b_object_delete((bObject*)test);
+    b_object_delete((BObject*)test);
     
     StringColor *sc = string_color_new();
     b_string_set((bString*)sc,"Cosas");
@@ -31,7 +31,7 @@ int main(void){
     i_showable_show((IShowable*)sc);
     b_string_print((bString*)sc);
 
-    b_object_delete((bObject*)sc);
+    b_object_delete((BObject*)sc);
     
 
 

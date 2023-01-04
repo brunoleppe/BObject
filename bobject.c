@@ -2,19 +2,19 @@
 #include <stdio.h>
 
 static bType type_id = 0;
-static bObjectClass class;
+static BObjectClass class;
 
-static void destructor(bObject* obj){
+static void destructor(BObject* obj){
     b_type_free(obj,obj->type);
     DEBUG_PRINT("Eliminando el objeto\n");
 }
 
-static void bObject_class_initialize(bObjectClass* class){
+static void bObject_class_initialize(BObjectClass* class){
     class->destructor = destructor;
 }
-static void bObject_instance_initialize(bObject* obj){
+static void bObject_instance_initialize(BObject* obj){
     obj->type = type_id;
-    DEBUG_PRINT("inicializando bObject\n");
+    DEBUG_PRINT("inicializando BObject\n");
 }
 
 static void bOject_initialize(){
@@ -22,9 +22,9 @@ static void bOject_initialize(){
     if(initialized)
         return;
     type_id = b_type_object_initialize(
-        sizeof(bObject),
+        sizeof(BObject),
         (void (*)(void*))bObject_instance_initialize,
-        sizeof(bObjectClass),
+        sizeof(BObjectClass),
         (void (*)(void*))bObject_class_initialize,
         &class);
 
@@ -36,9 +36,9 @@ static void bOject_initialize(){
 
 }
 
-bObject* b_object_new(bType type)
+BObject* b_object_new(bType type)
 {
-    bObject* obj = b_type_instantiate(type);
+    BObject* obj = b_type_instantiate(type);
     if(obj == NULL)
         return NULL;
     obj->type = type;
@@ -46,9 +46,9 @@ bObject* b_object_new(bType type)
 }
 
 
-void b_object_delete(bObject* obj)
+void b_object_delete(BObject* obj)
 {
-    bObjectClass* class = b_type_class_get(obj->type);
+    BObjectClass* class = b_type_class_get(obj->type);
     class->destructor(obj);
 }
 

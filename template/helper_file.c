@@ -56,14 +56,14 @@ void file_header(char *namespace, char *type, char *parent, bool derivable)
 }
 void file_source(char *namespace, char *type, char *parent, bool private, bool implements, char *interfaces[], int interface_count)
 {
-    char object_name[1024];
-    strcpy(object_name,str_first_upper(namespace));
-    strcat(object_name,str_first_upper(type));
-    char filename_c[1024];
+    char object_name[1024]="";
+    strcpy(object_name,str_first_upper(str_tolower(namespace)));
+    strcat(object_name,str_first_upper(str_tolower(type)));
+    char filename_c[1024]="";
     strcpy(filename_c,str_tolower(namespace));
     strcat(filename_c,str_tolower(type));
     strcat(filename_c,".c");
-    char filename_h[1024];
+    char filename_h[1024]="";
     strcpy(filename_h,str_tolower(namespace));
     strcat(filename_h,str_tolower(type));
     strcat(filename_h,".h");
@@ -91,8 +91,8 @@ void file_source(char *namespace, char *type, char *parent, bool private, bool i
     }
 
 
-    char parent_namespace[1024];
-    char parent_type[1024];
+    char parent_namespace[1024]="";
+    char parent_type[1024]="";
     str_separate(parent,parent_namespace,parent_type);
 
     if(!private && !implements)
@@ -122,8 +122,8 @@ void file_source(char *namespace, char *type, char *parent, bool private, bool i
         fprintf(file,"\tB_IMPLEMENT_INTERFACES(\n");
         int i;
         for(i=0;i<interface_count;i++){
-            char inamespace[1024];
-            char itype[1024];
+            char inamespace[1024]="";
+            char itype[1024]="";
             str_separate(interfaces[i],inamespace,itype);
             fprintf(file,"\t\tB_INTERFACE(%s_TYPE_%s(),%s)\n",str_toupper(inamespace),str_toupper(itype),init[i]);
         }
@@ -139,8 +139,8 @@ void file_source(char *namespace, char *type, char *parent, bool private, bool i
     fprintf(file,"static void %s_%s_class_initialize(%sClass *class)\n{\n\t/*Implementation*/\n}\n\n",str_tolower(namespace),str_tolower(type),object_name);
     fprintf(file,"static void %s_%s_instance_initialize(%s *self)\n{\n\t/*Implementation*/\n}\n\n",str_tolower(namespace),str_tolower(type),object_name);
     fprintf(file,"static void %s_%s_destructor(%s *self)\n{\n\t/*Implementation*/\n"
-        "\tbObjectClass* class = b_type_parent_class_get(type_id);\n"
-        "\tclass->destructor((bObject*)self);\n"
+        "\tBObjectClass* class = b_type_parent_class_get(type_id);\n"
+        "\tclass->destructor((BObject*)self);\n"
         "\t\n}\n\n",str_tolower(namespace),str_tolower(type),object_name);
 
     fprintf(file,"%1$s* %2$s_%3$s_new(void){\n"

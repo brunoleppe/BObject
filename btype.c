@@ -103,7 +103,7 @@ bType b_type_register(
     if(q->parent_id == 1){//Is Interface
         //q->data = i_face_list_create();
     }
-    //All classes should be derived from bObject, this should always be true except for bObject (base class)
+    //All classes should be derived from BObject, this should always be true except for BObject (base class)
     else if(q->parent_id >= 0){
         bTypeNode *parent = types[q->parent_id];
         

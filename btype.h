@@ -89,7 +89,7 @@ typedef struct TypeName##Interface TypeName##Interface;\
 bType type_name##_get_type();\
 static inline TypeName##Interface* type_name##_get_iface(void* obj)\
 {\
-    return (TypeName##Interface*)b_type_interface_get(((bObject*)obj)->type,type_name##_get_type());\
+    return (TypeName##Interface*)b_type_interface_get(((BObject*)obj)->type,type_name##_get_type());\
 } 
 
 #define B_DEFINE_INTERFACE(TypeName, type_name)\

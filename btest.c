@@ -41,14 +41,14 @@ static void i_showable_interface_init(IShowableInterface *iface)
 
 static void b_test_destructor(bTest* test)
 {
-    bObjectClass* class = b_type_parent_class_get(type_id);
+    BObjectClass* class = b_type_parent_class_get(type_id);
     DEBUG_PRINT("Eliminando bTest\n");
-    class->destructor((bObject*)test);
+    class->destructor((BObject*)test);
     
 }
 
 static void b_test_class_initialize(bTestClass* class){
-    class->parent_class.destructor = (void(*)(bObject*))b_test_destructor;
+    class->parent_class.destructor = (void(*)(BObject*))b_test_destructor;
 }
 
 static void b_test_instance_initialize(bTest* test)

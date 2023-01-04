@@ -17,8 +17,8 @@ static void b_string_instance_initialize(BString *self)
 static void b_string_destructor(BString *self)
 {
 	/*Implementation*/
-	bObjectClass* class = b_type_parent_class_get(type_id);
-	class->destructor((bObject*)self);
+	BObjectClass* class = b_type_parent_class_get(type_id);
+	class->destructor((BObject*)self);
 	
 }
 

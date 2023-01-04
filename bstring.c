@@ -41,9 +41,9 @@ static void i_printable_interface_init (IPrintableInterface *iface)
 static void b_string_destructor(bString* string)
 {
     free(string->string);
-    bObjectClass* class = b_type_parent_class_get(type_id);
+    BObjectClass* class = b_type_parent_class_get(type_id);
     DEBUG_PRINT("Eliminando string\n");
-    class->destructor((bObject*)string);
+    class->destructor((BObject*)string);
     
 }
 static void print(bString* string)
@@ -53,7 +53,7 @@ static void print(bString* string)
 
 
 static void b_string_class_initialize(bStringClass* class){
-    class->parent_class.destructor = (void(*)(bObject*))b_string_destructor;
+    class->parent_class.destructor = (void(*)(BObject*))b_string_destructor;
     class->print = print;
 }
 
