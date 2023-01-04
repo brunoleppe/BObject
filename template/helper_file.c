@@ -150,3 +150,72 @@ void file_source(char *namespace, char *type, char *parent, bool private, bool i
 
     fclose(file);
 }
+
+void interface_header(char *namespace, char *type, char *parent)
+{
+    char object_name[1024];
+    strcpy(object_name,str_first_upper(namespace));
+    strcat(object_name,str_first_upper(type));
+    char filename_h[1024];
+    strcpy(filename_h,str_tolower(namespace));
+    strcat(filename_h,str_tolower(type));
+    strcat(filename_h,".h");
+
+    FILE *file;
+    file = fopen(filename_h,"w");
+
+    fprintf(file,"#ifndef %1$s\n#define %1$s\n\n",str_toupper(str_replace(filename_h,'.','_')));
+    
+    char aux[1024];
+    strcpy(aux,parent);
+    fprintf(file,"#include \"%s.h\"\n\n",str_tolower(aux));
+
+    fprintf(file,"#ifdef __cplusplus\nextern \"C\"{\n#endif\n\n\n");
+
+    fprintf(file,"#define %s_TYPE_%s()\t\t",str_toupper(namespace),str_toupper(type));
+    fprintf(file,"%s_%s_get_type()\n",str_tolower(namespace),str_tolower(type));
+
+    char *der = "B_DECLARE_INTERFACE";
+
+    fprintf(file,"%s(%s, %s_%s)\n\n",der,object_name,str_tolower(namespace),str_tolower(type));
+
+
+    fprintf(file,"struct %sInterface{\n"
+        "\t/*virual methods*/\n"
+        "};\n\n",object_name);
+    
+
+    fprintf(file,"/*Interface Methods*/\n\n\n");
+    fprintf(file,"#ifdef __cplusplus\n}\n#endif\n\n\n");
+    fprintf(file,"#endif /*%s*/",filename_h);
+
+    fclose(file);
+}
+
+void interface_source(char *namespace, char *type, char *parent)
+{
+    char object_name[1024]="";
+    strcpy(object_name,str_first_upper(namespace));
+    strcat(object_name,str_first_upper(type));
+    char filename_h[1024]="";
+    strcpy(filename_h,str_tolower(namespace));
+    strcat(filename_h,str_tolower(type));
+    strcat(filename_h,".h");
+    char filename_c[1024]="";
+    strcpy(filename_c,str_tolower(namespace));
+    strcat(filename_c,str_tolower(type));
+    strcat(filename_c,".c");
+
+    FILE *file;
+    file = fopen(filename_c,"w");
+
+    fprintf(file,"#include \"%s\"\n\n\n",str_tolower(str_replace(filename_h,'_','.')));
+
+    char *der = "B_DEFINE_INTERFACE";
+
+    fprintf(file,"%s(%s, %s_%s)\n\n",der,object_name,str_tolower(namespace),str_tolower(type));
+
+    fprintf(file,"/*Interface Methods Implementation*/\n\n\n");
+
+    fclose(file);
+}
