@@ -1,11 +1,8 @@
 #include "bstring.h"
 
 
-typedef struct{
-	/*private fields*/
-}BStringPrivate;
 
-B_DEFINE_TYPE_WITH_PRIVATE(BString, b_string, B_TYPE_OBJECT())
+B_DEFINE_TYPE(BString, b_string, B_TYPE_OBJECT())
 
 static void b_string_class_initialize(BStringClass *class)
 {

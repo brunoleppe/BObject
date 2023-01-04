@@ -83,20 +83,20 @@ int main(int argc, char *argv[]){
     puts(arguments.args[2]);
 
 
-    // strcpy(namespace,argv[1]);
-    // strcpy(type,argv[2]);
-    // strcpy(parent,argv[3]);
+    strcpy(namespace,arguments.args[0]);
+    strcpy(type,arguments.args[1]);
+    strcpy(parent,arguments.args[2]);
 
     file_header(
-        arguments.args[0],
-        arguments.args[1],
-        arguments.args[2],
+        namespace,
+        type,
+        parent,
         arguments.derivable
     );
     file_source(
-        arguments.args[0],
-        arguments.args[1],
-        arguments.args[2],
+        namespace,
+        type,
+        parent,
         arguments.private,
         arguments.implements,
         arguments.interfaces,

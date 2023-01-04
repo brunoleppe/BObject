@@ -74,7 +74,16 @@ void file_source(char *namespace, char *type, char *parent, bool private, bool i
     FILE *file;
     file = fopen(filename_c,"w");
 
-    fprintf(file,"#include \"%s\"\n\n\n",str_tolower(str_replace(filename_h,'_','.')));
+    fprintf(file,"#include \"%s\"\n",str_tolower(str_replace(filename_h,'_','.')));
+    int i;
+    for(i=0;i<interface_count;i++){
+        char aux[1024];
+        strcpy(aux,interfaces[i]);
+        fprintf(file,"#include \"%s.h\"\n",str_tolower(aux));
+    }
+    fprintf(file,"\n\n\n");
+    
+    
     if(private){
         fprintf(file,"typedef struct{\n"
             "\t/*private fields*/\n"
@@ -106,7 +115,7 @@ void file_source(char *namespace, char *type, char *parent, bool private, bool i
         }
         fprintf(file,"\n\n");
 
-        fprintf(file,"B_DEFINE_TYPE_EXTENDED(%s, %s_%s, %s_TYPE_%s()\n",object_name,str_tolower(namespace),str_tolower(type),
+        fprintf(file,"B_DEFINE_TYPE_EXTENDED(%s, %s_%s, %s_TYPE_%s(),\n",object_name,str_tolower(namespace),str_tolower(type),
             str_toupper(parent_namespace),str_toupper(parent_type));
         if(private)
             fprintf(file,"\tB_DEFINE_PRIVATE(%s, %s_%s)\n",object_name,str_tolower(namespace),str_tolower(type));
@@ -116,7 +125,7 @@ void file_source(char *namespace, char *type, char *parent, bool private, bool i
             char inamespace[1024];
             char itype[1024];
             str_separate(interfaces[i],inamespace,itype);
-            fprintf(file,"\t\tB_INTERFACE(%s_TYPE_%s,%s)\n",str_toupper(inamespace),str_toupper(itype),init[i]);
+            fprintf(file,"\t\tB_INTERFACE(%s_TYPE_%s(),%s)\n",str_toupper(inamespace),str_toupper(itype),init[i]);
         }
         fprintf(file,"\t)\n)\n\n");
 
