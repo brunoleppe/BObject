@@ -148,7 +148,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=botgen
+CMAKE_PROJECT_NAME:STATIC=bogen
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -220,6 +220,15 @@ Template_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Template_SOURCE_DIR:STATIC=/home/bruno/Documents/Programas/GitHub/bObject/template
+
+//Value Computed by CMake
+bogen_BINARY_DIR:STATIC=/home/bruno/Documents/Programas/GitHub/bObject/template/build
+
+//Value Computed by CMake
+bogen_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+bogen_SOURCE_DIR:STATIC=/home/bruno/Documents/Programas/GitHub/bObject/template
 
 //Value Computed by CMake
 botgen_BINARY_DIR:STATIC=/home/bruno/Documents/Programas/GitHub/bObject/template/build

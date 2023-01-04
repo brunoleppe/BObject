@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/bruno/Documents/Programas/GitHub/bObject/template/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/botgen.dir/all
+all: CMakeFiles/bogen.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/botgen.dir/clean
+clean: CMakeFiles/bogen.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/botgen.dir
+# Target rules for target CMakeFiles/bogen.dir
 
 # All Build rule for target.
-CMakeFiles/botgen.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bruno/Documents/Programas/GitHub/bObject/template/build/CMakeFiles --progress-num=1,2,3,4 "Built target botgen"
-.PHONY : CMakeFiles/botgen.dir/all
+CMakeFiles/bogen.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/bruno/Documents/Programas/GitHub/bObject/template/build/CMakeFiles --progress-num=1,2,3,4 "Built target bogen"
+.PHONY : CMakeFiles/bogen.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/botgen.dir/rule: cmake_check_build_system
+CMakeFiles/bogen.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bruno/Documents/Programas/GitHub/bObject/template/build/CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/botgen.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bogen.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/bruno/Documents/Programas/GitHub/bObject/template/build/CMakeFiles 0
-.PHONY : CMakeFiles/botgen.dir/rule
+.PHONY : CMakeFiles/bogen.dir/rule
 
 # Convenience name for target.
-botgen: CMakeFiles/botgen.dir/rule
-.PHONY : botgen
+bogen: CMakeFiles/bogen.dir/rule
+.PHONY : bogen
 
 # clean rule for target.
-CMakeFiles/botgen.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/clean
-.PHONY : CMakeFiles/botgen.dir/clean
+CMakeFiles/bogen.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/clean
+.PHONY : CMakeFiles/bogen.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named botgen
+# Target rules for targets named bogen
 
 # Build rule for target.
-botgen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 botgen
-.PHONY : botgen
+bogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bogen
+.PHONY : bogen
 
 # fast build rule for target.
-botgen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/build
-.PHONY : botgen/fast
+bogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/build
+.PHONY : bogen/fast
 
 helper_file.o: helper_file.c.o
 .PHONY : helper_file.o
 
 # target to build an object file
 helper_file.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/helper_file.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/helper_file.c.o
 .PHONY : helper_file.c.o
 
 helper_file.i: helper_file.c.i
@@ -142,7 +142,7 @@ helper_file.i: helper_file.c.i
 
 # target to preprocess a source file
 helper_file.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/helper_file.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/helper_file.c.i
 .PHONY : helper_file.c.i
 
 helper_file.s: helper_file.c.s
@@ -150,7 +150,7 @@ helper_file.s: helper_file.c.s
 
 # target to generate assembly for a file
 helper_file.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/helper_file.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/helper_file.c.s
 .PHONY : helper_file.c.s
 
 helper_string.o: helper_string.c.o
@@ -158,7 +158,7 @@ helper_string.o: helper_string.c.o
 
 # target to build an object file
 helper_string.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/helper_string.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/helper_string.c.o
 .PHONY : helper_string.c.o
 
 helper_string.i: helper_string.c.i
@@ -166,7 +166,7 @@ helper_string.i: helper_string.c.i
 
 # target to preprocess a source file
 helper_string.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/helper_string.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/helper_string.c.i
 .PHONY : helper_string.c.i
 
 helper_string.s: helper_string.c.s
@@ -174,7 +174,7 @@ helper_string.s: helper_string.c.s
 
 # target to generate assembly for a file
 helper_string.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/helper_string.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/helper_string.c.s
 .PHONY : helper_string.c.s
 
 template.o: template.c.o
@@ -182,7 +182,7 @@ template.o: template.c.o
 
 # target to build an object file
 template.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/template.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/template.c.o
 .PHONY : template.c.o
 
 template.i: template.c.i
@@ -190,7 +190,7 @@ template.i: template.c.i
 
 # target to preprocess a source file
 template.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/template.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/template.c.i
 .PHONY : template.c.i
 
 template.s: template.c.s
@@ -198,7 +198,7 @@ template.s: template.c.s
 
 # target to generate assembly for a file
 template.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/botgen.dir/build.make CMakeFiles/botgen.dir/template.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bogen.dir/build.make CMakeFiles/bogen.dir/template.c.s
 .PHONY : template.c.s
 
 # Help Target
@@ -209,7 +209,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... botgen"
+	@echo "... bogen"
 	@echo "... helper_file.o"
 	@echo "... helper_file.i"
 	@echo "... helper_file.s"

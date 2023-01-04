@@ -43,5 +43,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/botgen.dir/DependInfo.cmake"
+  "CMakeFiles/bogen.dir/DependInfo.cmake"
   )
