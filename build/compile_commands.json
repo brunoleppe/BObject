@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/bruno/Documents/Github/bObject/build",
+  "command": "/usr/bin/gcc   -g   -DB_DEBUG -o CMakeFiles/main.dir/main.c.o   -c /home/bruno/Documents/Github/bObject/main.c",
+  "file": "/home/bruno/Documents/Github/bObject/main.c"
+},
+{
+  "directory": "/home/bruno/Documents/Github/bObject/build/blib",
+  "command": "/usr/bin/gcc   -g   -DB_DEBUG -o CMakeFiles/blib.dir/blist.c.o   -c /home/bruno/Documents/Github/bObject/blib/blist.c",
+  "file": "/home/bruno/Documents/Github/bObject/blib/blist.c"
+},
+{
+  "directory": "/home/bruno/Documents/Github/bObject/build/blib",
+  "command": "/usr/bin/gcc   -g   -DB_DEBUG -o CMakeFiles/blib.dir/bobject.c.o   -c /home/bruno/Documents/Github/bObject/blib/bobject.c",
+  "file": "/home/bruno/Documents/Github/bObject/blib/bobject.c"
+},
+{
+  "directory": "/home/bruno/Documents/Github/bObject/build/blib",
+  "command": "/usr/bin/gcc   -g   -DB_DEBUG -o CMakeFiles/blib.dir/btype.c.o   -c /home/bruno/Documents/Github/bObject/blib/btype.c",
+  "file": "/home/bruno/Documents/Github/bObject/blib/btype.c"
+},
+{
+  "directory": "/home/bruno/Documents/Github/bObject/build/blib",
+  "command": "/usr/bin/gcc   -g   -DB_DEBUG -o CMakeFiles/blib.dir/debug.c.o   -c /home/bruno/Documents/Github/bObject/blib/debug.c",
+  "file": "/home/bruno/Documents/Github/bObject/blib/debug.c"
+}
+]

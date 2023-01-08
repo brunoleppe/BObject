@@ -1,43 +1,28 @@
-#include "bobject.h"
-#include "bstring.h"
+#include "blib/bobject.h"
+#include "blib/blist.h"
 #include <stdio.h>
-#include "iprintable.h"
-#include "btest.h"
-#include "ishowable.h"
-#include "stringcolor.h"
+
+static void delete_fcn(BObject* obj, void* data){
+    b_object_delete(obj);
+}
 
 int main(void){
-    BObject *obj = b_object_new(b_object_get_type());
-    
 
+    BList *list = b_list_new();
+    b_list_add(list,b_object_new(b_object_get_type()));
+    b_list_add(list,b_object_new(b_object_get_type()));
+    b_list_add(list,b_object_new(b_object_get_type()));
+    b_list_add(list,b_object_new(b_object_get_type()));
+    b_list_add(list,b_object_new(b_object_get_type()));
 
-    bString *string = b_string_new();
-    b_string_set(string, "Hola Mundo");
+    printf("Cantidad de elementos: %d\n",b_list_count(list));
 
-    
-    bTest *test = b_test_new();
+    b_list_delete(list,delete_fcn);
 
-    i_printable_print((IPrintable*)string);
-    i_printable_print((IPrintable*)test);
-    i_showable_show((IShowable*)test);
-    
-    b_object_delete((BObject*)string);
-    b_object_delete(obj);
-    b_object_delete((BObject*)test);
-    
-    StringColor *sc = string_color_new();
-    b_string_set((bString*)sc,"Cosas");
-    i_printable_print((IPrintable*)sc);
-    i_showable_show((IShowable*)sc);
-    b_string_print((bString*)sc);
-
-    b_object_delete((BObject*)sc);
-    
 
 
     b_type_clean();
     
-
     return 0;
 
 

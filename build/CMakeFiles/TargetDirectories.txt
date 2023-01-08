@@ -1,0 +1,6 @@
+/home/bruno/Documents/Github/bObject/build/CMakeFiles/rebuild_cache.dir
+/home/bruno/Documents/Github/bObject/build/CMakeFiles/edit_cache.dir
+/home/bruno/Documents/Github/bObject/build/CMakeFiles/main.dir
+/home/bruno/Documents/Github/bObject/build/blib/CMakeFiles/rebuild_cache.dir
+/home/bruno/Documents/Github/bObject/build/blib/CMakeFiles/edit_cache.dir
+/home/bruno/Documents/Github/bObject/build/blib/CMakeFiles/blib.dir

@@ -4,6 +4,7 @@
         "bobject.h": "c",
         "btype.h": "c",
         "stddef.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "stdatomic.h": "c"
     }
 }

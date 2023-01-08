@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/bruno/Documents/Github/bObject/blib/balloc.h
+stddef.h
+-
+stdlib.h
+-
+stdlib.h
+-
+
+/home/bruno/Documents/Github/bObject/blib/blist.c
+blist.h
+/home/bruno/Documents/Github/bObject/blib/blist.h
+
+/home/bruno/Documents/Github/bObject/blib/blist.h
+bobject.h
+/home/bruno/Documents/Github/bObject/blib/bobject.h
+
+/home/bruno/Documents/Github/bObject/blib/bobject.h
+btype.h
+/home/bruno/Documents/Github/bObject/blib/btype.h
+
+/home/bruno/Documents/Github/bObject/blib/btype.h
+debug.h
+/home/bruno/Documents/Github/bObject/blib/debug.h
+stddef.h
+-
+stdbool.h
+-
+stdint.h
+-
+balloc.h
+/home/bruno/Documents/Github/bObject/blib/balloc.h
+
+/home/bruno/Documents/Github/bObject/blib/debug.h
+stdio.h
+-
+
