@@ -43,7 +43,7 @@ static void b_list_destructor(BList *self)
 
 	BObjectClass* class = b_type_parent_class_get(type_id);
 	class->destructor((BObject*)self);
-	
+		
 }
 
 BList* b_list_new(void){
@@ -93,7 +93,7 @@ void	b_list_add		(BList* list, void *data)
 int 	b_list_count	(BList* list)
 {
 	if(list == NULL)
-		return;
+		return 0;
 	BListPrivate *priv = b_list_get_private(list);
 	return priv->count;
 }
@@ -114,7 +114,7 @@ void* 	b_list_index 	(BList* list, int index)
 void	b_list_foreach	(BList* list, void (*func)(void *element, void *user_data), void *user_data)
 {
 	if(list == NULL)
-		return NULL;
+		return;
 	if(func == NULL)
 		return;
 
@@ -138,14 +138,14 @@ void    b_list_delete	(BList* list, void (*clear_func)(void*, void *user_data))
 void	b_list_set_at_origin	(BList* list)
 {
 	if(list == NULL)
-		return NULL;
+		return;
 	BListPrivate *priv = b_list_get_private(list);
 	priv->current = priv->head;
 }
 void	b_list_set_at_end		(BList* list)
 {
 	if(list == NULL)
-		return NULL;
+		return;
 	BListPrivate *priv = b_list_get_private(list);
 	priv->current = priv->tail;
 }

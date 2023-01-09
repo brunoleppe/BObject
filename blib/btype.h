@@ -121,9 +121,9 @@ static void type_name##_initialize(){                               \
     b_type_add_interfaces(type_id, __VA_ARGS__, NULL);\
 }
 
-#define B_OVERWRITE_INTERFACE(iface_type, init_fcn)\
+#define B_OVERWRITE_INTERFACE(b_interface)\
 {\
-    b_type_overwrite_interface(type_id,B_INTERFACE(iface_type, init_fcn));\
+    b_type_overwrite_interface(type_id, b_interface);\
 }
 
 #define B_INTERFACE(_iface_type, _init_fcn)   &(IFaceParams){.iface_type = _iface_type, .init_fcn = (void (*)(void*))_init_fcn}

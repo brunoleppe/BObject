@@ -13,6 +13,7 @@ typedef struct IFaceEntry{
 }IFaceEntry;
 
 typedef struct {
+    bool overridden;
     int count;
     int class_offset;
     IFaceEntry *entry_array;
@@ -60,7 +61,31 @@ static inline bTypeNode* b_type_get_node_from_type_id(bType type_id){
     return q;
 }
 
+static inline void _b_type_iface_data_initialize(IFaceData *data)
+{
+    data->class_offset = 0;
+    data->count = 0;
+    data->entry_array = NULL;
+    data->overridden = false;
+}
 
+static inline void _b_type_iface_data_copy(IFaceData *__restrict__ dst, IFaceData *__restrict__ src)
+{
+    dst->class_offset = src->class_offset;
+    dst->count = src->count;
+    dst->entry_array = dst->entry_array;
+    //dst->overridden = dst->overridden; this is not copied as entry_array is not "new" and must be overriden
+}
+
+static inline void _b_type_iface_data_inherit(IFaceData *__restrict__ dst, IFaceData *__restrict__ src)
+{
+    memcpy(
+        dst->entry_array, 
+        src->entry_array, 
+        sizeof(IFaceEntry)*src->count
+        );
+    dst->overridden = true;  
+}
 
 bType b_type_register(
     bType parent_type,
@@ -80,9 +105,7 @@ bType b_type_register(
     }
 
     //Initialize interface data
-    q->iface_data.class_offset = 0;
-    q->iface_data.count = 0;
-    q->iface_data.entry_array = NULL;
+    _b_type_iface_data_initialize(&q->iface_data);
 
     //Initialize private offset and size, will inherit parent's values later
     q->private_offset = 0;
@@ -106,13 +129,6 @@ bType b_type_register(
         bTypeNode *parent = types[q->parent_id];
         
         q->class_size += parent->iface_data.class_offset;
-
-        // //obtain the parent class
-        // void *parent_class = parent->class;
-        // //obtain the parent class size
-        // bSize parent_class_size = parent->class_size;
-        // //Inherit base class by copying all function pointers to child class (this)
-        // memcpy(q->class,parent_class,parent_class_size);
         
         //update child's private offset and private size from parent.
         q->private_offset = parent->private_offset;
@@ -121,14 +137,12 @@ bType b_type_register(
         q->instance_size += q->private_size;
 
         //update iface_data
-        q->iface_data = parent->iface_data;
+        _b_type_iface_data_copy(&q->iface_data,&parent->iface_data);
     }
     
     //Initialize the class
     q->class_init_fcn = class_initialize;
-    // if(class_initialize)
-    //     class_initialize(q->class);
-    //Assign the object's constructor function
+    //Assign the object's init function
     q->constructor = instance_initialize;
     //Store the new bTypeNode
     types[q->type_id] = q;
@@ -158,9 +172,7 @@ bType b_type_object_initialize(
     }
 
     //Initialize interface data
-    q->iface_data.class_offset = 0;
-    q->iface_data.count = 0;
-    q->iface_data.entry_array = NULL;
+    _b_type_iface_data_initialize(&q->iface_data);
 
     //Initialize private offset and size, will inherit parent's values later
     q->private_offset = 0;
@@ -178,8 +190,7 @@ bType b_type_object_initialize(
 
     //Initialize the class
     q->class_init_fcn = class_initialize;
-    // if(class_initialize)
-    //     class_initialize(q->class);
+
     //Assign the object's constructor function
     q->constructor = instance_initialize;
     //Store the new bTypeNode
@@ -257,7 +268,7 @@ void b_type_clean()
             continue;
         
         free(((char*)types[i]->class)-types[i]->iface_data.class_offset);
-        if(types[i]->iface_data.entry_array)
+        if(types[i]->iface_data.overridden)
             free(types[i]->iface_data.entry_array);
         
         free(types[i]);
@@ -266,7 +277,7 @@ void b_type_clean()
 
 void * b_type_interface_get(bType instance_type, bType interface_type)
 {
-    bTypeNode *q = types[instance_type];
+    bTypeNode *q = b_type_get_node_from_type_id(instance_type);
     if(!q->iface_data.entry_array){
         return NULL;
     }
@@ -283,7 +294,7 @@ void * b_type_interface_get(bType instance_type, bType interface_type)
 
 void b_type_add_interfaces(bType type, ...)
 {
-    bTypeNode *node = types[type];
+    bTypeNode *node = b_type_get_node_from_type_id(type);
     va_list params, list;
     va_start(params,type);
     va_copy(list, params);
@@ -301,16 +312,11 @@ void b_type_add_interfaces(bType type, ...)
 
 
     node->iface_data.entry_array = b_malloc(sizeof(IFaceEntry)*count);
-    if(!node->iface_data.entry_array){
+    if(!node->iface_data.entry_array)
         return;
-    }
-    if(node->parent_id >= 0 && node->iface_data.entry_array != NULL){
-        memcpy(
-            node->iface_data.entry_array, 
-            types[node->parent_id]->iface_data.entry_array, 
-            sizeof(IFaceEntry)*types[node->parent_id]->iface_data.count
-            );
-    }
+    if(node->parent_id >= 0 && node->iface_data.entry_array != NULL)
+        _b_type_iface_data_inherit(&node->iface_data,&types[node->parent_id]->iface_data);
+    
 
     int aux_count = node->iface_data.count;
     node->iface_data.count = count;
@@ -324,7 +330,7 @@ void b_type_add_interfaces(bType type, ...)
     
     p = va_arg(params,IFaceParams*);
     while(p){
-        bTypeNode *iface = types[p->iface_type];
+        bTypeNode *iface = b_type_get_node_from_type_id(p->iface_type);
         offset += iface->class_size;
         entry_array[count].class_type = iface->type_id;
         entry_array[count].init_fcn = p->init_fcn;
@@ -341,7 +347,7 @@ void b_type_add_interfaces(bType type, ...)
 
 void b_type_class_initialize(bType type)
 {
-    bTypeNode *node = types[type];
+    bTypeNode *node = b_type_get_node_from_type_id(type);
     node->class = b_malloc(node->class_size);
     if(!node->class){
         return;
@@ -375,9 +381,15 @@ void b_type_class_initialize(bType type)
 void b_type_overwrite_interface(bType type, IFaceParams *params)
 {
     bTypeNode *q = b_type_get_node_from_type_id(type);
-    if(!q->iface_data.entry_array){
-        return;
+    if(!q->iface_data.overridden){
+        q->iface_data.entry_array = b_malloc(sizeof(IFaceEntry)*q->iface_data.count);
+        if(!q->iface_data.entry_array)
+            return;
+
+        if(q->parent_id >= 0 && q->iface_data.entry_array != NULL)
+            _b_type_iface_data_inherit(&q->iface_data,&types[q->parent_id]->iface_data);
     }
+
     int i;
     for(i=0;i<q->iface_data.count;i++){
         if(q->iface_data.entry_array[i].class_type == params->iface_type){
