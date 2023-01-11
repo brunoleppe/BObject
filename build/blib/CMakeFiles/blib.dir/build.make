@@ -112,12 +112,26 @@ blib/CMakeFiles/blib.dir/debug.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/blib.dir/debug.c.s"
 	cd /home/bruno/Documents/Github/bObject/build/blib && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bruno/Documents/Github/bObject/blib/debug.c -o CMakeFiles/blib.dir/debug.c.s
 
+blib/CMakeFiles/blib.dir/bqueue.c.o: blib/CMakeFiles/blib.dir/flags.make
+blib/CMakeFiles/blib.dir/bqueue.c.o: ../blib/bqueue.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bruno/Documents/Github/bObject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object blib/CMakeFiles/blib.dir/bqueue.c.o"
+	cd /home/bruno/Documents/Github/bObject/build/blib && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/blib.dir/bqueue.c.o   -c /home/bruno/Documents/Github/bObject/blib/bqueue.c
+
+blib/CMakeFiles/blib.dir/bqueue.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/blib.dir/bqueue.c.i"
+	cd /home/bruno/Documents/Github/bObject/build/blib && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bruno/Documents/Github/bObject/blib/bqueue.c > CMakeFiles/blib.dir/bqueue.c.i
+
+blib/CMakeFiles/blib.dir/bqueue.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/blib.dir/bqueue.c.s"
+	cd /home/bruno/Documents/Github/bObject/build/blib && /usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bruno/Documents/Github/bObject/blib/bqueue.c -o CMakeFiles/blib.dir/bqueue.c.s
+
 # Object files for target blib
 blib_OBJECTS = \
 "CMakeFiles/blib.dir/blist.c.o" \
 "CMakeFiles/blib.dir/bobject.c.o" \
 "CMakeFiles/blib.dir/btype.c.o" \
-"CMakeFiles/blib.dir/debug.c.o"
+"CMakeFiles/blib.dir/debug.c.o" \
+"CMakeFiles/blib.dir/bqueue.c.o"
 
 # External object files for target blib
 blib_EXTERNAL_OBJECTS =
@@ -126,9 +140,10 @@ blib/libblib.a: blib/CMakeFiles/blib.dir/blist.c.o
 blib/libblib.a: blib/CMakeFiles/blib.dir/bobject.c.o
 blib/libblib.a: blib/CMakeFiles/blib.dir/btype.c.o
 blib/libblib.a: blib/CMakeFiles/blib.dir/debug.c.o
+blib/libblib.a: blib/CMakeFiles/blib.dir/bqueue.c.o
 blib/libblib.a: blib/CMakeFiles/blib.dir/build.make
 blib/libblib.a: blib/CMakeFiles/blib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bruno/Documents/Github/bObject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C static library libblib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bruno/Documents/Github/bObject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C static library libblib.a"
 	cd /home/bruno/Documents/Github/bObject/build/blib && $(CMAKE_COMMAND) -P CMakeFiles/blib.dir/cmake_clean_target.cmake
 	cd /home/bruno/Documents/Github/bObject/build/blib && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/blib.dir/link.txt --verbose=$(VERBOSE)
 

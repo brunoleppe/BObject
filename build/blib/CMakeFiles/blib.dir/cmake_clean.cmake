@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/blib.dir/blist.c.o"
   "CMakeFiles/blib.dir/bobject.c.o"
+  "CMakeFiles/blib.dir/bqueue.c.o"
   "CMakeFiles/blib.dir/btype.c.o"
   "CMakeFiles/blib.dir/debug.c.o"
   "libblib.a"

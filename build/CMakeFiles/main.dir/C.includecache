@@ -22,6 +22,10 @@ bobject.h
 btype.h
 /home/bruno/Documents/Github/bObject/blib/btype.h
 
+/home/bruno/Documents/Github/bObject/blib/bqueue.h
+bobject.h
+/home/bruno/Documents/Github/bObject/blib/bobject.h
+
 /home/bruno/Documents/Github/bObject/blib/btype.h
 debug.h
 /home/bruno/Documents/Github/bObject/blib/debug.h
@@ -43,6 +47,8 @@ blib/bobject.h
 /home/bruno/Documents/Github/bObject/blib/bobject.h
 blib/blist.h
 /home/bruno/Documents/Github/bObject/blib/blist.h
+blib/bqueue.h
+/home/bruno/Documents/Github/bObject/blib/bqueue.h
 stdio.h
 -
 

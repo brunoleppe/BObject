@@ -4,6 +4,7 @@
 CMakeFiles/main.dir/main.c.o: ../blib/balloc.h
 CMakeFiles/main.dir/main.c.o: ../blib/blist.h
 CMakeFiles/main.dir/main.c.o: ../blib/bobject.h
+CMakeFiles/main.dir/main.c.o: ../blib/bqueue.h
 CMakeFiles/main.dir/main.c.o: ../blib/btype.h
 CMakeFiles/main.dir/main.c.o: ../blib/debug.h
 CMakeFiles/main.dir/main.c.o: ../main.c

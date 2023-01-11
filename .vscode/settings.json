@@ -5,6 +5,7 @@
         "btype.h": "c",
         "stddef.h": "c",
         "typeinfo": "c",
-        "stdatomic.h": "c"
+        "stdatomic.h": "c",
+        "limits": "c"
     }
 }

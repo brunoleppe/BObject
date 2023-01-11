@@ -14,6 +14,13 @@ blib/CMakeFiles/blib.dir/bobject.c.o
  /home/bruno/Documents/Github/bObject/blib/bobject.h
  /home/bruno/Documents/Github/bObject/blib/btype.h
  /home/bruno/Documents/Github/bObject/blib/debug.h
+blib/CMakeFiles/blib.dir/bqueue.c.o
+ /home/bruno/Documents/Github/bObject/blib/balloc.h
+ /home/bruno/Documents/Github/bObject/blib/bobject.h
+ /home/bruno/Documents/Github/bObject/blib/bqueue.c
+ /home/bruno/Documents/Github/bObject/blib/bqueue.h
+ /home/bruno/Documents/Github/bObject/blib/btype.h
+ /home/bruno/Documents/Github/bObject/blib/debug.h
 blib/CMakeFiles/blib.dir/btype.c.o
  /home/bruno/Documents/Github/bObject/blib/balloc.h
  /home/bruno/Documents/Github/bObject/blib/btype.c

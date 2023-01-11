@@ -1,5 +1,6 @@
 #include "blib/bobject.h"
 #include "blib/blist.h"
+#include "blib/bqueue.h"
 #include <stdio.h>
 
 static void delete_fcn(BObject* obj, void* data){
@@ -8,18 +9,28 @@ static void delete_fcn(BObject* obj, void* data){
 
 int main(void){
 
-    BList *list = b_list_new();
-    b_list_add(list,b_object_new(b_object_get_type()));
-    b_list_add(list,b_object_new(b_object_get_type()));
-    b_list_add(list,b_object_new(b_object_get_type()));
-    b_list_add(list,b_object_new(b_object_get_type()));
-    b_list_add(list,b_object_new(b_object_get_type()));
+    BQueue *q = b_queue_new(5);
+    b_queue_enqueue(q, (void*)0);
+    b_queue_enqueue(q, (void*)1);
+    b_queue_enqueue(q, (void*)2);
+    b_queue_enqueue(q, (void*)3);
+    b_queue_enqueue(q, (void*)4);
 
-    printf("Cantidad de elementos: %d\n",b_list_count(list));
+    // b_queue_show(q);
 
-    b_list_delete(list,delete_fcn);
+    printf("\n%lu\n",(long long)b_queue_dequeue(q));
+    printf("%lu\n",(long long)b_queue_dequeue(q));  
+
+    // b_queue_show(q);
+
+    b_queue_enqueue(q, (void*)6);
+
+    printf("\n%lu\n",(long long)b_queue_dequeue(q));
+
+    // b_queue_show(q);
 
 
+    b_object_delete((BObject*)q);
 
     b_type_clean();
     

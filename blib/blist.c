@@ -2,16 +2,16 @@
 
 typedef struct BListNode{
 	void *data;
-	struct BListNode* prev;
-	struct BListNode* next;
+	struct BListNode *prev;
+	struct BListNode *next;
 }BListNode;
 
 typedef struct{
 	/*private fields*/
 	int count;
-	BListNode* head;
-	BListNode* tail;
-	BListNode* current;
+	BListNode *head;
+	BListNode *tail;
+	BListNode *current;
 }BListPrivate;
 
 static void _b_list_free(BList* list);
