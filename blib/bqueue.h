@@ -20,7 +20,7 @@ BQueue* b_queue_new( int capacity );
 /*Class Methods*/
 void*		b_queue_enqueue		(BQueue *q, void *data);
 void*		b_queue_dequeue		(BQueue *q);
-int			b_queue_count		(BQueue *q, void *data);
+int			b_queue_count		(BQueue *q);
 void		b_queue_delete		(BQueue *q, void (*delete_fcn)(void*));
 void 		b_queue_show		(BQueue *q);
 
