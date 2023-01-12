@@ -93,7 +93,7 @@ void*		b_queue_dequeue		(BQueue *q)
 
 	return data;
 }
-int			b_queue_count		(BQueue *q)
+int			datab_queue_count		(BQueue *q)
 {
 	if(q == NULL)
 		return 0;
