@@ -1,0 +1,2 @@
+/usr/bin/ar qc libblib.a  CMakeFiles/blib.dir/blist.c.o CMakeFiles/blib.dir/bobject.c.o CMakeFiles/blib.dir/btype.c.o CMakeFiles/blib.dir/debug.c.o CMakeFiles/blib.dir/bqueue.c.o
+/usr/bin/ranlib libblib.a
