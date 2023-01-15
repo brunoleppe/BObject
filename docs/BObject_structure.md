@@ -1,4 +1,4 @@
-# BObject Structur
+# BObject Structure
 
 ## How a BObject is made
 
