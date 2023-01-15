@@ -22,6 +22,7 @@ blib/CMakeFiles/blib.dir/bqueue.c.o: ../blib/btype.h
 blib/CMakeFiles/blib.dir/bqueue.c.o: ../blib/debug.h
 
 blib/CMakeFiles/blib.dir/btype.c.o: ../blib/balloc.h
+blib/CMakeFiles/blib.dir/btype.c.o: ../blib/bobject.h
 blib/CMakeFiles/blib.dir/btype.c.o: ../blib/btype.c
 blib/CMakeFiles/blib.dir/btype.c.o: ../blib/btype.h
 blib/CMakeFiles/blib.dir/btype.c.o: ../blib/debug.h

@@ -21,7 +21,7 @@
 #include "blist.h"
 
 /**
- * @brief Linked List node structure.
+ * @brief Doubly Linked List node structure.
  * Contains a pointer to the user data and two pointers to the next and previous node.
  * 
  */
@@ -37,12 +37,19 @@ typedef struct BListNode{
  */
 typedef struct{
 	/*private fields*/
-	int count;
-	BListNode *head;
-	BListNode *tail;
-	BListNode *current;
+	int count; /**< Mantains the count of elements inside the list*/
+	BListNode *head; /**< Pointer to the first node of the list*/
+	BListNode *tail; /**< Pointer to the last node of the list*/
+	BListNode *current; /**< Pointer to the current element of the list, used to traverse the list with
+						the b_list_next and b_list_prev methods.*/
 }BListPrivate;
 
+/**
+ * @brief Frees all the nodes of the list.
+ * Doesn't free the data. 
+ * 
+ * @param list This list.
+ */
 static void _b_list_free(BList* list);
 
 

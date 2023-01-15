@@ -1,66 +1,113 @@
+/* btype.c: Type System.
+ * 
+ * Copyright (C) 2023 Bruno Leppe <bruno.leppe.dev@gmail.com>
+ *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "btype.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include "bobject.h"
 
-
+/**
+ * @brief Data structure containing interface parameters.
+ * When implementing an interface, the class structure size is increased. Thus, 
+ * an offset is provided to access the portion of memory where the interface is located.
+ */
 typedef struct IFaceEntry{
-    bType class_type;
-    int offset;
-    void (*init_fcn)(void*);
-    void *iface;
+    bType class_type; /**< Interface's Type ID. */
+    int offset; /**< Offset of the interface withing the class structure. */
+    void (*init_fcn)(void*); /**< Pointer to the initialization function. */
+    void *iface /**< Pointer to the interface structure */;
 }IFaceEntry;
 
+/**
+ * @brief Structure containing interface data for a Type
+ * Every Type in the Type System contains an IFaceData field.
+ * 
+ */
 typedef struct {
-    bool overridden;
-    int count;
-    int class_offset;
-    IFaceEntry *entry_array;
+    bool overridden; /**< Flag indicating that the entry_array of interfaces has been overriden in a derived class */
+    int count; /**< count of implemented interfaces for a Type */
+    int class_offset; /**< offset of the Type's class within the allocated class structure. */
+    IFaceEntry *entry_array; /**< Array of implemented interfaces */
 }IFaceData;
 
-typedef struct IFaceNode{
-    IFaceEntry entry;
-    struct IFaceNode *next;
-}IFaceNode;
-
-typedef struct IFaceList{
-    IFaceNode *head;
-    IFaceNode *current;
-    int count;
-}IFaceList;
-
+/**
+ * @brief Structure that represents a Type in the Type System.
+ * 
+ */
 typedef struct{
-    bType type_id;
-    bType parent_id;
+    bType type_id; /**< ID of the Type */
+    bType parent_id; /**< Type ID of the parent */
     
-    bSize instance_size;
-    bSize class_size;
+    bSize instance_size; /**< Size in bytes of the instance structure (private + public + parent's private)*/
+    bSize class_size; /**< Size in bytes of the class structure (class + implemented interfaces)*/
     
-    bSize private_size;
-    int private_offset;
+    bSize private_size; /**< Size of the private fields' structure */
+    int private_offset /**< Offset of the private structure within the instance memory*/;
 
     //const char* name;
-    void* class;
+    void* class /**< Pointer to the class structure */;
 
-    void (*constructor)(void*);
-    void (*class_init_fcn)(void*);
+    void (*constructor)(void*); /**< Instance initialization function */
+    void (*class_init_fcn)(void*); /**< Class initialization function */
 
-    void *data;
-    IFaceData iface_data;
+    IFaceData iface_data; /**< Data of implemented interfaces */
 }bTypeNode;
 
+/**
+ * Array of TypeNodes that contains every registered Type.
+ * 
+ */
+static bTypeNode *types[B_TYPE_MAX_TYPES]; 
 
-static bTypeNode *types[20];
+/**
+ * @brief Starting type_id for user defined Types.
+ * Type ID 0 belongs to BObject.
+ * Type ID 1 belongs to Interface types.
+ * 
+ */
 static bType type_id = 2;
+
+/**
+ * @brief Maintains the count of registered Types.
+ * 
+ */
 static int type_count = 0;
 
+/**
+ * @brief Gets the TypeNode associated to the specified Type ID.
+ * 
+ * @param type_id Type ID
+ * @return bTypeNode* Associated TypeNode.
+ */
 static inline bTypeNode* b_type_get_node_from_type_id(bType type_id){
     //int index = B_TYPE_MAKE_INDEX(type_id);
     bTypeNode *q = types[type_id];
     return q;
 }
 
+/**
+ * @brief Initializes the IFaceData field of a TypeNode.
+ * 
+ * @param data IFaceData field.
+ */
 static inline void _b_type_iface_data_initialize(IFaceData *data)
 {
     data->class_offset = 0;
@@ -69,6 +116,12 @@ static inline void _b_type_iface_data_initialize(IFaceData *data)
     data->overridden = false;
 }
 
+/**
+ * @brief Copies the IFaceData of a parent Type to a derived Type.
+ * 
+ * @param dst Derived Type IFaceData field.
+ * @param src Parent Type IFaceData field.
+ */
 static inline void _b_type_iface_data_copy(IFaceData *__restrict__ dst, IFaceData *__restrict__ src)
 {
     dst->class_offset = src->class_offset;
@@ -77,6 +130,14 @@ static inline void _b_type_iface_data_copy(IFaceData *__restrict__ dst, IFaceDat
     //dst->overridden = dst->overridden; this is not copied as entry_array is not "new" and must be overriden
 }
 
+/**
+ * @brief Copies the IFaceEntry array of a Parent Type to a Derived Type
+ * 
+ * The IFaceEntry structure contains the implemented interface parameters.
+ * 
+ * @param dst Derived Type IFaceData field. 
+ * @param src Parent Type IfaceData field.
+ */
 static inline void _b_type_iface_data_inherit(IFaceData *__restrict__ dst, IFaceData *__restrict__ src)
 {
     memcpy(

@@ -99,7 +99,7 @@ void	b_list_foreach			(BList* list, void (*func)(void* element, void* user_data)
 
 /**
  * @brief Clears all the elements of the list and calls a clean up function if defined.
- * 
+ * The clean up function should free the memory allocated for a single element if needed.
  * @param list This BList.
  * @param clear_func Clean up function. If NULL, elements won't be cleaned (if working with integers, const char*, etc).
  */
@@ -120,7 +120,7 @@ void    b_list_delete			(BList* list, void (*clear_func)(void*, void* user_data)
  * 
  * @param list This BList.
  * 
- * This function is used to initialize the iterator to the first position.
+ * This function is used to initialize the list iterator to the first position.
  */
 void	b_list_set_at_origin	(BList* list);
 
@@ -130,7 +130,7 @@ void	b_list_set_at_origin	(BList* list);
  * 
  * @param list This BList
  * 
- * This function is used to initialize the iterator to the last position.
+ * This function is used to initialize the list iterator to the last position.
  */
 void	b_list_set_at_end		(BList* list);
 

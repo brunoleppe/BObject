@@ -30,7 +30,7 @@ static BObjectClass class;
 
 static void destructor(BObject* obj){
     b_type_free(obj,obj->type);
-    DEBUG_PRINT("Eliminando el objeto\n");
+    DEBUG_PRINT("Deleting Object\n");
 }
 
 static void bObject_class_initialize(BObjectClass* class){
@@ -38,7 +38,7 @@ static void bObject_class_initialize(BObjectClass* class){
 }
 static void bObject_instance_initialize(BObject* obj){
     obj->type = type_id;
-    DEBUG_PRINT("inicializando BObject\n");
+    DEBUG_PRINT("Initializing BObject\n");
 }
 
 static void bOject_initialize(){
@@ -55,7 +55,7 @@ static void bOject_initialize(){
     b_type_class_initialize(type_id);
 
     initialized = true;
-    INFO_PRINT("Objeto inicializado\n");
+    INFO_PRINT("BObject Type Registered\n");
 }
 
 BObject* b_object_new(bType type)

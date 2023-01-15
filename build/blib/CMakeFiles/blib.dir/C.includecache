@@ -14,6 +14,20 @@ stdlib.h
 stdlib.h
 -
 
+/home/bruno/Documents/Github/bObject/blib/blist.c
+blist.h
+/home/bruno/Documents/Github/bObject/blib/blist.h
+
+/home/bruno/Documents/Github/bObject/blib/blist.h
+bobject.h
+/home/bruno/Documents/Github/bObject/blib/bobject.h
+
+/home/bruno/Documents/Github/bObject/blib/bobject.c
+bobject.h
+/home/bruno/Documents/Github/bObject/blib/bobject.h
+stdio.h
+-
+
 /home/bruno/Documents/Github/bObject/blib/bobject.h
 btype.h
 /home/bruno/Documents/Github/bObject/blib/btype.h
@@ -28,6 +42,18 @@ stdio.h
 bobject.h
 /home/bruno/Documents/Github/bObject/blib/bobject.h
 
+/home/bruno/Documents/Github/bObject/blib/btype.c
+btype.h
+/home/bruno/Documents/Github/bObject/blib/btype.h
+string.h
+-
+stdio.h
+-
+stdarg.h
+-
+bobject.h
+/home/bruno/Documents/Github/bObject/blib/bobject.h
+
 /home/bruno/Documents/Github/bObject/blib/btype.h
 debug.h
 /home/bruno/Documents/Github/bObject/blib/debug.h
@@ -39,6 +65,12 @@ stdint.h
 -
 balloc.h
 /home/bruno/Documents/Github/bObject/blib/balloc.h
+
+/home/bruno/Documents/Github/bObject/blib/debug.c
+debug.h
+/home/bruno/Documents/Github/bObject/blib/debug.h
+stdarg.h
+-
 
 /home/bruno/Documents/Github/bObject/blib/debug.h
 stdio.h
