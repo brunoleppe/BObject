@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
-
+#include "bobject.h"
 
 
 typedef struct IFaceEntry{
@@ -369,7 +369,7 @@ void b_type_class_initialize(bType type)
 
     node->class = ((char*)node->class) + node->iface_data.class_offset;
     node->class_init_fcn(node->class);
-
+    ((BObjectClass*)node->class)->type = type;
 
     int i;
     for(i=0;i<node->iface_data.count;i++){
