@@ -37,6 +37,7 @@ struct BObject{
 
 typedef struct BObjectClass BObjectClass;
 struct BObjectClass{
+    bType type;
     void (*destructor)(BObject*);
 };
 
