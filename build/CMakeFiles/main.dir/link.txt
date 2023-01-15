@@ -1,1 +1,0 @@
-/usr/bin/gcc -g   CMakeFiles/main.dir/main.c.o  -o main  blib/libblib.a 
