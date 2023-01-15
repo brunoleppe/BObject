@@ -1,7 +1,8 @@
 # bObject
 OOP in C 
 
-# How to use
+# Usage
 
 
-# 
+# BObject Theory
+Theory behind BObject can be found  [here](docs/BObject_structure.md)
