@@ -66,12 +66,6 @@ stdint.h
 balloc.h
 /home/bruno/Documents/Github/bObject/blib/balloc.h
 
-/home/bruno/Documents/Github/bObject/blib/debug.c
-debug.h
-/home/bruno/Documents/Github/bObject/blib/debug.h
-stdarg.h
--
-
 /home/bruno/Documents/Github/bObject/blib/debug.h
 stdio.h
 -
