@@ -29,7 +29,7 @@ int vector_2d_normalize(struct Vector2D *v);
 int vector_2d_add_vector_2d(struct Vector2D *v1, struct Vector2D *v2);
 ```
 This Vector2D struct represents the Vector2D class, with public data and public methods.
-Data hiding, "private" fields, can be achieved defining the struct inside the source file.
+Data hiding, "private" fields, can be achieved by defining the struct inside the source file.
 
 Header file vector2d.h:
 ```
