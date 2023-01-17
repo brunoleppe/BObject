@@ -304,8 +304,8 @@ Create the interface IEnumerator
 ./bogen -I IEnumerator
 ```
 
-# BObject Theory
-Theory about BObject can be found  [here](docs/BObject_structure.md)
+# BObject Implementation
+BObject's implementation can be found  [here](docs/BObject_structure.md)
 
 # Contributing
 
