@@ -1,1 +1,0 @@
-/usr/bin/cc -Wall   CMakeFiles/main.dir/test.c.o  -o main  blib/libblib.a 
