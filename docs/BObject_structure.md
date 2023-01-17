@@ -142,30 +142,38 @@ by adding both struct sizes.
 
 We can visualize what's happening with this diagram:
 This represents the memory block of the "public" struct
+```
 |++++++++|
 |++++++++|
+```
 
 and this represents the memory block of the "private" struct
+```
 |........|
 |........|
 |........|
+```
 
 To join them, we just need to add their sizes, then the Type System will allocate a memory block with the total size, creating a block like this:
+```
 |        |
 |        |
 |        |
 |        |
 |        |
+```
 
 Then we need to provide an offset to divide the two structs. BObject always divide the block placing the private data "above" the public data.
 This helps with inheritance of both public and private data. Note that private data "cannot" be inherited, as the private struct is defined
 in the source file, nobody can access the struct definition.
 The allocated memory block will be seen as this by the Type System:
+```
 |........|
 |........|
 |........|----> here's the offset value
 |++++++++|
 |++++++++|
+```
 
 When creating an object, the returned pointer will be offset a positive amount to point to the public data. When accessing 
 the private data the object's pointer will be offset by a negative amount to be placed at the origin of the block, 
