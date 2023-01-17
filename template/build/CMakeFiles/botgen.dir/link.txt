@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/botgen.dir/helper_file.c.o CMakeFiles/botgen.dir/helper_string.c.o CMakeFiles/botgen.dir/template.c.o -o botgen 

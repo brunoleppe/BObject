@@ -1,3 +1,0 @@
-/home/bruno/Documents/Programas/GitHub/bObject/template/build/CMakeFiles/bogen.dir
-/home/bruno/Documents/Programas/GitHub/bObject/template/build/CMakeFiles/edit_cache.dir
-/home/bruno/Documents/Programas/GitHub/bObject/template/build/CMakeFiles/rebuild_cache.dir

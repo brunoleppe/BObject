@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/bogen.dir/helper_file.c.o CMakeFiles/bogen.dir/helper_string.c.o CMakeFiles/bogen.dir/template.c.o -o bogen 

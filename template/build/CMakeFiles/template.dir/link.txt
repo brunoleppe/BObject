@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/template.dir/helper_file.c.o CMakeFiles/template.dir/helper_string.c.o CMakeFiles/template.dir/template.c.o -o template 
