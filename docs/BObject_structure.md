@@ -76,7 +76,7 @@ struct child{
 };
 ```
 
-Lastly, polymorphism can also be achieved defining a class structure with virtual methods. Note that inheritance also applies with class structures.
+Lastly, polymorphism can also be achieved by defining a class structure with virtual methods. Note that inheritance also applies with class structures.
 For a graphics library something like this could be implemented:
 ```
 /* figure.h */
