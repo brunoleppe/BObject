@@ -303,9 +303,9 @@ static void type_name##_initialize(){                               \
  * ) 
  * 
  */
-#define B_OVERWRITE_INTERFACE(b_interface)\
+#define B_OVERRIDE_INTERFACE(b_interface)\
 {\
-    b_type_overwrite_interface(type_id, b_interface);\
+    b_type_override_interface(type_id, b_interface);\
 }
 
 #define B_INTERFACE(_iface_type, _init_fcn)   \
@@ -437,7 +437,7 @@ void b_type_add_interfaces(bType type, ... /* NULL*/);
  * @param params IFaceParams structure containing the Type ID of the interface and the new interface initialization
  * function.
  */
-void b_type_overwrite_interface(bType type, IFaceParams *params);
+void b_type_override_interface(bType type, IFaceParams *params);
 
 /**
  * @brief Function used to initialize the instance of the class structure of the specified Type ID.

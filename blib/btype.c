@@ -439,7 +439,7 @@ void b_type_class_initialize(bType type)
     }
 }
 
-void b_type_overwrite_interface(bType type, IFaceParams *params)
+void b_type_override_interface(bType type, IFaceParams *params)
 {
     bTypeNode *q = b_type_get_node_from_type_id(type);
     if(!q->iface_data.overridden){
