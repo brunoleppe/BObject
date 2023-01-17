@@ -127,7 +127,7 @@ So it's possible and easy to implement basic OOP concepts int the C language. Bu
 We need a Type System to achieve this, and is something that GNOME's GObject library does and BObject took inspiration from.
 
 **Note1:** BObject implementation was designed as simple as possible, it does not implement full OOP as expected from a 
-fully OOP oriented language as Java or C#. many things were left behind (Properties, and many many others). Although I 
+fully OOP oriented language as Java or C#. many things were left behind (Properties, and many more). Although I 
 think that it's possible to extend the Type System to include some of these features.
 
 **Note2:** BObject does not copy the GObject's implementation.
