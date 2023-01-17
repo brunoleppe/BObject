@@ -275,7 +275,7 @@ static void i_observer_interface_init(IObserverInterface *iface)
 	/*Implementation*/
 }
 ```
-# BObject Class Files Generator bogen
+## BObject Class Files Generator bogen
 
 **bogen** is a file generator that can generate source and header files for new BOject classes.
 
