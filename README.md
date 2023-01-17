@@ -1,6 +1,6 @@
 # About BObject
-BObject is a small and simple project based on GNOME GObject library. 
-It was developed to learn about OOP implementation ic the C language, with a simple approach in mind.
+BObject is a small and simple project based on GNOME's GObject library. 
+It was developed for learning purposes on OOP implementations with the C language, with a simple approach in mind.
 BObject tries to mimic, in a much naive and simpler way, what GObject does behind the curtain. 
 
 The BObject library consists of a Type System that defines types at runtime and a base object called BObject. 
@@ -12,15 +12,15 @@ implementation to work with fixed size arrays.
 ## Some Characteristics
 
  - Types are added to the Type System on demand, so no initializers are needed. 
- - All types inherit form BObject.
+ - All types inherit from BObject.
  - Definition of Public and Private fields (not Protected, sorry).
  - Single Inheritance, multiple interfaces.
 
 ## Some Lacking Characteristics
  
- - No type checking, relies on casting pointers.
- - "Object" type checking could be easily implemented, checking the object's type recursively among it's parents.
- - No interface type checks.
+ - No type checking, reliance on pointer casting.
+ - "Object" type checking can be implemented, checking the object's type recursively among it's parents.
+ - No interface type checks, can be implemented.
 
 # Usage
 
@@ -29,7 +29,7 @@ BObject uses the same macros defined in GObject for Type definition and declarin
 is highly recommended.
 
 By default, all object structures are open, user can add any public fields plus the parent's structure to achieve inheritance.
-A constructor is needed for all new types
+A constructor is needed for all new types, but is omitted when declaring "abstract" types.
 
 ### Final (not derivable) types:
 ```
@@ -150,11 +150,10 @@ BList* b_list_new(void){
 }
 ```
 ## Declaring Interfaces
-Declaring and defining interfaces is done in a somewhat similar way as GObject with some minor differences.
+Declaring and defining interfaces is done in a somewhat similar manner as GObject Interface Implementation with some minor differences.
 The Type System treats interfaces as non instantiable types, interfaces don't have constructors nor destructors, just
-virtual methods.
-Interfaces do not interit from any parent class for now.
-
+virtual methods (same as GObject).
+Interfaces do not interit from any parent class.
 ```
 #define I_TYPE_OBSERVABLE()		i_observable_get_type()
 B_DECLARE_INTERFACE(IObservable, i_observable)
@@ -276,6 +275,34 @@ static void i_observer_interface_init(IObserverInterface *iface)
 	/*Implementation*/
 }
 ```
+# BObject Class Files Generator bogen
+
+**bogen** is a file generator that can generate source and header files for new BOject classes.
+
+**bogen** only accepts TypeNames in camel case. The TypeName must be provided, it implicitly derives from BObject unless
+explicitly defined. **bogen** accepts the following options:
+ - -d: Create derivable types
+ - -i InterfaceName: implement InterfaceName
+ - -I: Create interface type
+ - -p Create type with private fields
+
+## Example of usage
+Crate the class BList that derives from BObject:
+```
+./bogen BList 
+```
+Create the class Blist that derives from BCollection, has private data and implements IEnumerator and IEnumerable interfaces
+```
+./bogen BList BCollection -p -i IEnumerator -i IEnumerable
+```
+Create the class BList as a derivable type
+```
+./bogen BList -d
+```
+Create the interface IEnumerator
+```
+./bogen -I IEnumerator
+```
 
 # BObject Theory
 Theory about BObject can be found  [here](docs/BObject_structure.md)
@@ -289,3 +316,4 @@ If you have a suggestion that would make this better, please fork the repo and c
 3. Commit your Changes (git commit -m 'Add some AmazingFeature')
 4. Push to the Branch (git push origin feature/AmazingFeature)
 5. Open a Pull Request
+
